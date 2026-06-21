@@ -1,9 +1,14 @@
+import Footer from "./components/Footer"
+import Header from "./components/Header"
+import AppRouter from "./provider/AppRouter"
 
 function App() {
   return (
-    <div>
-      
-    </div>
+    <>
+      <Header/>
+      <AppRouter/>
+      <Footer/>
+    </>
   )
 }
 
