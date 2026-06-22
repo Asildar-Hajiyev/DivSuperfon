@@ -21,6 +21,7 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState("AZ");
+  const [openInput, setOpeninput] = useState(false);
 
   const menuItems = [
     {
@@ -73,7 +74,7 @@ function Header() {
   const navLinks = [
     { id: 1, label: "Kampaniyalar" },
     { id: 2, label: "Haqqımızda" },
-    { id: 3, label: "Mağazalarımız" },
+    { id: 3, label: "Mağazalarimiz" },
     { id: 4, label: "Karyera" },
     { id: 5, label: "Əlaqə" },
   ];
@@ -87,6 +88,7 @@ function Header() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <>
       <nav className="relative">
@@ -163,7 +165,7 @@ function Header() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 py-5 px-6 gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 py-5 px-6 gap-4 relative">
           {/* Sol: Hamburger və Logo */}
           <div className="flex items-center justify-between md:justify-start gap-4 md:w-auto shrink-0">
             <div className="flex items-center gap-2">
@@ -177,7 +179,7 @@ function Header() {
             </div>
 
             <div className="flex items-center gap-3 md:hidden">
-              <IoSearchOutline className="text-4xl" />
+              <IoSearchOutline onClick={() => setOpeninput(!openInput)} className="text-4xl cursor-pointer" />
               <CiShoppingCart className="text-4xl" />
             </div>
           </div>
@@ -241,6 +243,27 @@ function Header() {
               </div>
             </div>
           </div>
+
+          {/* Yenilənmiş Mobil Axtarış Sahəsi */}
+          {openInput && (
+            <div className="absolute top-full left-0 bg-white w-full px-6 py-4 border-b flex items-center gap-3 z-50 shadow-md">
+              <div className="flex items-center bg-gray-100 w-full px-3 py-2 rounded-md border border-gray-200">
+                <input
+                  type="text"
+                  placeholder="Axtarış..."
+                  className="w-full bg-transparent focus:outline-none text-base"
+                  autoFocus
+                />
+                <IoSearchOutline className="text-2xl text-gray-400" />
+              </div>
+              <button 
+                onClick={() => setOpeninput(false)}
+                className="text-3xl text-gray-500 hover:text-black cursor-pointer p-1"
+              >
+                <IoClose />
+              </button>
+            </div>
+          )}
         </div>
 
         <div
