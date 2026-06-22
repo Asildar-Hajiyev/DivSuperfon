@@ -1,15 +1,90 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../assets/logo_new.svg";
-import { FaBars, FaAngleDown } from "react-icons/fa6";
+import {
+  FaBars,
+  FaAngleDown,
+  FaCreditCard,
+  FaHeadphonesSimple,
+  FaAngleRight,
+  FaMusic,
+  FaRegObjectUngroup,
+} from "react-icons/fa6";
 import { IoSearchOutline, IoLanguageOutline, IoClose } from "react-icons/io5";
 import { CiShoppingCart } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
-import { FiUser } from "react-icons/fi";
+import { FiUser, FiWatch } from "react-icons/fi";
+import { PiCarProfileThin } from "react-icons/pi";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState("AZ");
+
+  const menuItems = [
+    {
+      id: 1,
+      icon: <FaCreditCard className="text-2xl" />,
+      label: "Hədiyyə kartları",
+      hasArrow: false,
+    },
+    {
+      id: 2,
+      icon: <FaHeadphonesSimple className="text-2xl" />,
+      label: "Telefon Aksesuarları",
+      hasArrow: true,
+    },
+    {
+      id: 3,
+      icon: <FiWatch className="text-2xl" />,
+      label: "Saatlar",
+      hasArrow: true,
+    },
+    {
+      id: 4,
+      icon: <FaMusic className="text-2xl" />,
+      label: "Audio və TV aksesuarlar",
+      hasArrow: true,
+    },
+    {
+      id: 5,
+      icon: <PiCarProfileThin className="text-2xl" />,
+      label: "Avtomobil aksesuarları",
+      hasArrow: true,
+    },
+    {
+      id: 6,
+      icon: <FaRegObjectUngroup className="text-2xl" />,
+      label: "Kiçik məişət texnikası",
+      hasArrow: true,
+    },
+    {
+      id: 7,
+      icon: <FiWatch className="text-2xl" />,
+      label: "Digər",
+      hasArrow: true,
+    },
+    {
+      id: 8,
+      label: "Brendlər",
+    },
+  ];
+  const navLinks = [
+    { id: 1, label: "Kampaniyalar" },
+    { id: 2, label: "Haqqımızda" },
+    { id: 3, label: "Mağazalarımız" },
+    { id: 4, label: "Karyera" },
+    { id: 5, label: "Əlaqə" },
+  ];
+  useEffect(() => {
+  const handleResize = () => {
+    if (window.innerWidth >= 768) {
+      setMenuOpen(false);
+    }
+  };
+
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
   return (
     <>
       <nav className="relative">
@@ -92,7 +167,7 @@ function Header() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="flex md:hidden"
+                className="flex md:hidden cursor-pointer"
               >
                 <FaBars className="text-2xl" />
               </button>
@@ -107,19 +182,17 @@ function Header() {
             </div>
           </div>
 
-          {/* Menyu Linkləri - Animasiyanın işləməsi üçün şərt class səviyyəsinə endirildi */}
-
           {/* Böyük ekranlar (Desktop) üçün ikonlar */}
           <div className="hidden md:flex items-center gap-3">
+            
             <IoSearchOutline className="text-3xl" />
             <CiShoppingCart className="text-3xl" />
           </div>
         </div>
         <div
-          className={`fixed top-0 left-0 h-full w-[400px] z-50 bg-white shadow-lg
-            transition-transform duration-300 ease-in-out
-            ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
+          className={`fixed top-0 left-0 h-full w-[400px] z-50 bg-white shadow-lg transition-transform duration-300 ease-in-out ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
+          {/* ust hisse */}
           <div className="flex items-center justify-between p-4 bg-gray-100 border-b border-gray-300">
             <img src={logo} className="w-[180px]" alt="" />
             {/* Dil seçici */}
@@ -162,17 +235,30 @@ function Header() {
               />
             </div>
           </div>
-          <ul className="p-4 flex flex-col gap-4 mt-16">
-            <li className="font-medium hover:text-orange-500 cursor-pointer">
-              Menyu 1
-            </li>
-            <li className="font-medium hover:text-orange-500 cursor-pointer">
-              Menyu 2
-            </li>
-            <li className="font-medium hover:text-orange-500 cursor-pointer">
-              Menyu 3
-            </li>
+
+          <ul className="flex flex-col">
+            {menuItems.map((item) => (
+              <li
+                key={item.id}
+                className="flex items-center justify-between gap-2 p-3 border-b border-gray-300 cursor-pointer text-gray-700"
+              >
+                <span
+                  className={`flex items-center gap-3 ${item.icon ? "" : "pl-9"}`}
+                >
+                  {item.icon}
+                  <span className="hover:underline">{item.label}</span>
+                </span>
+                {item.hasArrow && <FaAngleRight />}
+              </li>
+            ))}
           </ul>
+          <div className="flex items-start flex-col gap-3 p-3">
+            {navLinks.map((link) => (
+              <span key={link.id} className="cursor-pointer hover:underline">
+                {link.label}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Qaranlıq arxa fon */}
