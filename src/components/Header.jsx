@@ -10,10 +10,12 @@ import {
   FaRegObjectUngroup,
 } from "react-icons/fa6";
 import { IoSearchOutline, IoLanguageOutline, IoClose } from "react-icons/io5";
-import { CiShoppingCart } from "react-icons/ci";
+import { CiShoppingCart, CiHeart } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { FiUser, FiWatch } from "react-icons/fi";
 import { PiCarProfileThin } from "react-icons/pi";
+import { HiBars3BottomRight } from "react-icons/hi2";
+import { GiScales } from "react-icons/gi";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -76,15 +78,15 @@ function Header() {
     { id: 5, label: "Əlaqə" },
   ];
   useEffect(() => {
-  const handleResize = () => {
-    if (window.innerWidth >= 768) {
-      setMenuOpen(false);
-    }
-  };
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMenuOpen(false);
+      }
+    };
 
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   return (
     <>
       <nav className="relative">
@@ -161,34 +163,86 @@ function Header() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 p-4">
-          {/* Sol/Üst tərəf: Hamburger və Logo */}
-          <div className="flex items-center justify-between md:justify-start gap-4 w-full md:w-auto">
+        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 py-5 px-6 gap-4">
+          {/* Sol: Hamburger və Logo */}
+          <div className="flex items-center justify-between md:justify-start gap-4 md:w-auto shrink-0">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="flex md:hidden cursor-pointer"
               >
-                <FaBars className="text-2xl" />
+                <FaBars className="text-3xl" />
               </button>
-
-              <img className="w-[200px]" src={logo} alt="Logo" />
+              <img className="w-[180px] lg:w-[220px]" src={logo} alt="Logo" />
             </div>
 
-            {/* Sağ tərəfdəki ikonlar mobildə loqo ilə eyni sətirdə görünsün deyə bura köçürüldü (vizual olaraq) */}
             <div className="flex items-center gap-3 md:hidden">
-              <IoSearchOutline className="text-3xl" />
-              <CiShoppingCart className="text-3xl" />
+              <IoSearchOutline className="text-4xl" />
+              <CiShoppingCart className="text-4xl" />
             </div>
           </div>
 
-          {/* Böyük ekranlar (Desktop) üçün ikonlar */}
-          <div className="hidden md:flex items-center gap-3">
-            
-            <IoSearchOutline className="text-3xl" />
-            <CiShoppingCart className="text-3xl" />
+          {/* Desktop */}
+          <div className="hidden md:flex items-center gap-4 w-full">
+            {/* Kataloq */}
+            <div className="relative group shrink-0">
+              <div className="bg-red-500 border-2 border-red-500 flex items-center px-5 py-3 rounded-sm text-xl text-white group-hover:bg-white group-hover:text-red-500 gap-2 cursor-pointer whitespace-nowrap">
+                <HiBars3BottomRight className="text-2xl" />
+                <span>Kataloq</span>
+              </div>
+
+              <ul className="absolute top-[calc(100%+10px)] left-0 bg-white shadow-lg border w-[320px] z-50 before:content-[''] before:absolute before:bottom-full before:left-0 before:w-full before:h-[10px] opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-in-out rounded-sm">
+                {menuItems.map((item) => (
+                  <li
+                    key={item.id}
+                    className="flex items-center justify-between gap-2 p-4 border-b border-gray-300 cursor-pointer text-gray-700 hover:bg-gray-50"
+                  >
+                    <span
+                      className={`flex items-center gap-3 ${item.icon ? "" : "pl-9"}`}
+                    >
+                      {item.icon}
+                      <span className="hover:underline text-base">
+                        {item.label}
+                      </span>
+                    </span>
+                    {item.hasArrow && <FaAngleRight />}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Axtarış */}
+            <div className="border flex items-center px-4 py-3 rounded-sm border-gray-400 flex-1">
+              <input
+                type="text"
+                placeholder="Axtarış"
+                id="srch"
+                className="focus:outline-none w-full text-base"
+              />
+              <label htmlFor="srch">
+                <IoSearchOutline className="text-2xl text-gray-400 cursor-pointer" />
+              </label>
+            </div>
+            {/* Tərəzi */}
+            <div className="shrink-0">
+              <GiScales className="text-4xl" />
+            </div>
+            {/* Ürək */}
+            <div className="shrink-0">
+              <CiHeart className="text-4xl" />
+            </div>
+
+            {/* Səbət */}
+            <div className="flex items-center gap-2 whitespace-nowrap shrink-0">
+              <CiShoppingCart className="text-4xl" />
+              <div className="flex flex-col">
+                <span className="text-gray-400 text-sm">Məbləğ</span>
+                <span className="text-base font-medium">0.00 ₼</span>
+              </div>
+            </div>
           </div>
         </div>
+
         <div
           className={`fixed top-0 left-0 h-full w-[400px] z-50 bg-white shadow-lg transition-transform duration-300 ease-in-out ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
