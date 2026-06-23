@@ -16,6 +16,7 @@ import { FiUser, FiWatch } from "react-icons/fi";
 import { PiCarProfileThin } from "react-icons/pi";
 import { HiBars3BottomRight } from "react-icons/hi2";
 import { GiScales } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -94,12 +95,12 @@ function Header() {
       <nav className="relative">
         <div className="border-b border-gray-200 py-4 px-4 flex items-center justify-between gap-2">
           <div className="flex items-center gap-4 text-sm md:text-base">
-            <div className="hover:underline font-semibold cursor-pointer">
+            <Link to="/storelocation" className="hover:underline font-semibold cursor-pointer">
               Mağazalarımız
-            </div>
-            <div className="hover:underline font-semibold cursor-pointer">
+            </Link>
+            <Link to="/corporate" className="hover:underline font-semibold cursor-pointer">
               Korporativ satış
-            </div>
+            </Link>
           </div>
 
           <div className="flex items-center gap-3">

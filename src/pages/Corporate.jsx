@@ -1,9 +1,9 @@
 
 function Corporate() {
   return (
-    <div>
+    <>
       Corporate
-    </div>
+    </>
   )
 }
 
