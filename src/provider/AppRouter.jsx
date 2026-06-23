@@ -1,11 +1,14 @@
-
+import { Route, Routes } from "react-router-dom";
+import Main from "../components/Main";
 
 function AppRouter() {
   return (
-    <div>
-      AppRouter
-    </div>
-  )
+    <>
+      <Routes>
+        <Route path="/" element={<Main/>}/>
+      </Routes>
+    </>
+  );
 }
 
-export default AppRouter
+export default AppRouter;
