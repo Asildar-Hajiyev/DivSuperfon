@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import logo from "../assets/logo_new.svg";
 import {
   FaBars,
@@ -17,78 +17,46 @@ import { PiCarProfileThin } from "react-icons/pi";
 import { HiBars3BottomRight } from "react-icons/hi2";
 import { GiScales } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { DATA } from "../Context/Context";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState("AZ");
   const [openInput, setOpeninput] = useState(false);
+  const [isFixed, setIsFixed] = useState(false);
 
-  const menuItems = [
-    {
-      id: 1,
-      icon: <FaCreditCard className="text-2xl" />,
-      label: "Hədiyyə kartları",
-      hasArrow: false,
-    },
-    {
-      id: 2,
-      icon: <FaHeadphonesSimple className="text-2xl" />,
-      label: "Telefon Aksesuarları",
-      hasArrow: true,
-    },
-    {
-      id: 3,
-      icon: <FiWatch className="text-2xl" />,
-      label: "Saatlar",
-      hasArrow: true,
-    },
-    {
-      id: 4,
-      icon: <FaMusic className="text-2xl" />,
-      label: "Audio və TV aksesuarlar",
-      hasArrow: true,
-    },
-    {
-      id: 5,
-      icon: <PiCarProfileThin className="text-2xl" />,
-      label: "Avtomobil aksesuarları",
-      hasArrow: true,
-    },
-    {
-      id: 6,
-      icon: <FaRegObjectUngroup className="text-2xl" />,
-      label: "Kiçik məişət texnikası",
-      hasArrow: true,
-    },
-    {
-      id: 7,
-      icon: <FiWatch className="text-2xl" />,
-      label: "Digər",
-      hasArrow: true,
-    },
-    {
-      id: 8,
-      label: "Brendlər",
-    },
-  ];
-  const navLinks = [
-    { id: 1, label: "Kampaniyalar" },
-    { id: 2, label: "Haqqımızda" },
-    { id: 3, label: "Mağazalarimiz" },
-    { id: 4, label: "Karyera" },
-    { id: 5, label: "Əlaqə" },
-  ];
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setMenuOpen(false);
-      }
-    };
+  const {navLinks,menuItems} = useContext(DATA)
+  
+ const icons = {
+  FaCreditCard,
+  FaHeadphonesSimple,
+  FiWatch,
+  FaMusic,
+  PiCarProfileThin,
+  FaRegObjectUngroup,
+};
+ 
+ useEffect(() => {
+  const handleResize = () => {
+    if (window.innerWidth >= 768) {
+      setMenuOpen(false);
+      setOpeninput(false);
+    }
+  };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const handleScroll = () => {
+    setIsFixed(window.scrollY > 65);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  window.addEventListener("resize", handleResize);
+
+  return () => {
+    window.removeEventListener("resize", handleResize);
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
   return (
     <>
@@ -166,24 +134,41 @@ function Header() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 py-5 px-6 gap-4 relative">
-          {/* Sol: Hamburger və Logo */}
-          <div className="flex items-center justify-between md:justify-start gap-4 md:w-auto shrink-0">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="flex md:hidden cursor-pointer"
-              >
-                <FaBars className="text-3xl" />
-              </button>
-              <img className="w-[180px] lg:w-[220px]" src={logo} alt="Logo" />
-            </div>
+        <div  className={`flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 py-5 px-6 gap-4 bg-white transition-all duration-300 ${isFixed ? "fixed top-0 left-0 w-full z-50 shadow-md" : "relative"}`}>
+          {/* Sol: Hamburger, Logo ve mobil: search, basket */}
+        <div className="flex items-center justify-between md:justify-start gap-2 sm:gap-4 md:w-auto shrink-0">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="flex md:hidden cursor-pointer p-1 -m-1"
+              aria-label="Menu"
+            >
+              <FaBars className="text-2xl sm:text-3xl" />
+            </button>
 
-            <div className="flex items-center gap-3 md:hidden">
-              <IoSearchOutline onClick={() => setOpeninput(!openInput)} className="text-4xl cursor-pointer" />
-              <CiShoppingCart className="text-4xl" />
-            </div>
+            <Link to="/home">
+              <img
+                className="w-[120px] sm:w-[160px] md:w-[180px] lg:w-[220px] h-auto"
+                src={logo}
+                alt="Logo"
+              />
+            </Link>
           </div>
+
+          <div className="flex items-center gap-2 sm:gap-3 md:hidden">
+            <button
+              onClick={() => setOpeninput(!openInput)}
+              className="p-1 -m-1 cursor-pointer"
+              aria-label="Search"
+            >
+              <IoSearchOutline className="text-3xl sm:text-4xl" />
+            </button>
+
+            <Link to="/basket" className="p-1 -m-1">
+              <CiShoppingCart className="text-3xl sm:text-4xl" />
+            </Link>
+          </div>
+        </div>
 
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-4 w-full">
@@ -195,22 +180,24 @@ function Header() {
               </div>
 
               <ul className="absolute top-[calc(100%+10px)] left-0 bg-white shadow-lg border w-[320px] z-50 before:content-[''] before:absolute before:bottom-full before:left-0 before:w-full before:h-[10px] opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-in-out rounded-sm">
-                {menuItems.map((item) => (
+                {menuItems.map((item) =>{ 
+                  const Icon = icons[item.icon]
+                 return (
                   <li
                     key={item.id}
                     className="flex items-center justify-between gap-2 p-4 border-b border-gray-300 cursor-pointer text-gray-700 hover:bg-gray-50"
                   >
                     <span
-                      className={`flex items-center gap-3 ${item.icon ? "" : "pl-9"}`}
+                      className={`flex items-center gap-3 text-2xl ${item.icon ? "" : "pl-9"}`}
                     >
-                      {item.icon}
+                      {Icon && <Icon className="text-xl" />}
                       <span className="hover:underline text-base">
                         {item.label}
                       </span>
                     </span>
                     {item.hasArrow && <FaAngleRight />}
                   </li>
-                ))}
+                )})}
               </ul>
             </div>
 
@@ -231,23 +218,23 @@ function Header() {
               <GiScales className="text-4xl" />
             </div>
             {/* Ürək */}
-            <div className="shrink-0">
+            <Link to="/favorite" className="shrink-0">
               <CiHeart className="text-4xl" />
-            </div>
+            </Link>
 
             {/* Səbət */}
-            <div className="flex items-center gap-2 whitespace-nowrap shrink-0">
+            <Link to="/basket" className="flex items-center gap-2 whitespace-nowrap shrink-0">
               <CiShoppingCart className="text-4xl" />
               <div className="flex flex-col">
                 <span className="text-gray-400 text-sm">Məbləğ</span>
                 <span className="text-base font-medium">0.00 ₼</span>
               </div>
-            </div>
+            </Link>
           </div>
 
           {/* Yenilənmiş Mobil Axtarış Sahəsi */}
           {openInput && (
-            <div className="absolute top-full left-0 bg-white w-full px-6 py-4 border-b flex items-center gap-3 z-50 shadow-md">
+            <div className="absolute top-full left-0 bg-white w-full  px-6 py-4 border-b flex items-center gap-3  shadow-md">
               <div className="flex items-center bg-gray-100 w-full px-3 py-2 rounded-md border border-gray-200">
                 <input
                   type="text"
@@ -255,6 +242,7 @@ function Header() {
                   className="w-full bg-transparent focus:outline-none text-base"
                   autoFocus
                 />
+              
                 <IoSearchOutline className="text-2xl text-gray-400" />
               </div>
               <button 
@@ -315,7 +303,9 @@ function Header() {
           </div>
 
           <ul className="flex flex-col">
-            {menuItems.map((item) => (
+            {menuItems.map((item) =>{
+            const Icon = icons[item.icon]
+             return (
               <li
                 key={item.id}
                 className="flex items-center justify-between gap-2 p-3 border-b border-gray-300 cursor-pointer text-gray-700"
@@ -323,12 +313,12 @@ function Header() {
                 <span
                   className={`flex items-center gap-3 ${item.icon ? "" : "pl-9"}`}
                 >
-                  {item.icon}
+                  {Icon && <Icon className="text-xl" />}
                   <span className="hover:underline">{item.label}</span>
                 </span>
                 {item.hasArrow && <FaAngleRight />}
               </li>
-            ))}
+            )})}
           </ul>
           <div className="flex items-start flex-col gap-3 p-3">
             {navLinks.map((link) => (

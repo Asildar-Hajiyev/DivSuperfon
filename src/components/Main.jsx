@@ -1,9 +1,9 @@
 
 function Main() {
   return (
-    <>
+    <div className="mt-full">
       Main
-    </>
+    </div>
   )
 }
 
