@@ -7,7 +7,7 @@ function Card({item,i}) {
     <div className="w-full aspect-square overflow-hidden">
       <img
         className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-125"
-        src={item.img}
+        src={item.image}
         alt={item.title}
       />
     </div>
@@ -23,7 +23,7 @@ function Card({item,i}) {
         {item.price} ₼
       </span>
 
-      <button className="flex items-center gap-0 group-hover:gap-2 bg-green-600 text-white px-3 py-2 rounded-md transition-all duration-500">
+      <button className="flex items-center gap-0 group-hover:gap-2 bg-green-600 text-white px-3 py-2 rounded-md transition-all duration-500 cursor-pointer">
         <CiShoppingCart className="text-xl sm:text-2xl" />
         <span className="max-w-0 opacity-0 overflow-hidden whitespace-nowrap group-hover:max-w-[150px] group-hover:opacity-100 transition-all duration-500 text-sm">
           Səbətə əlavə et
@@ -32,13 +32,13 @@ function Card({item,i}) {
     </div>
   </div>
 
-  <div className="absolute top-4 right-4 border rounded-full p-2 opacity-0 group-hover:opacity-100 transition">
+  <div className="absolute top-4 right-4 border rounded-full p-2 opacity-0 group-hover:opacity-100 transition hover:text-red-500 cursor-pointer">
     <CiHeart className="text-2xl" />
   </div>
 
-  <div className="absolute top-4 left-4 bg-green-700 text-white px-2 py-1 rounded text-sm">
-    Yeni
-  </div>
+ <div className={`absolute top-0 left-0 m-4 border rounded-xs px-2 bg-green-700 text-white cursor-pointer ${item.isNew ? "" : "hidden"}`}>
+  Yeni
+</div>
 </div>
   );
 }

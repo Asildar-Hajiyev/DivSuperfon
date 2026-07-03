@@ -14,8 +14,6 @@ function Home() {
   <Swiper className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-4"
   modules={[Navigation, Pagination, Autoplay]}
   spaceBetween={20}
-  // navigation
-  // pagination={{ clickable: true }}
   autoplay={{
     delay: 3000,
     disableOnInteraction: false,
