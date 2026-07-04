@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
-import Main from "../components/Main";
 import StoreLocation from "../pages/StoreLocation";
 import Corporate from "../pages/Corporate";
 import Basket from "../pages/Basket";
 import Favorite from "../pages/Favorite";
 import Home from "../pages/Home";
 import Card from "../components/Card";
+import Main from "../pages/Main";
 
 function AppRouter() {
   return (

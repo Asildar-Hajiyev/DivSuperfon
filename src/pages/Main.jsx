@@ -1,8 +1,10 @@
+import Home from "./Home"
 
+ 
 function Main() {
   return (
-    <div className="mt-full">
-      Main
+    <div className="m-4">
+      <Home/>
     </div>
   )
 }
