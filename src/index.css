@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xs: 400px;
+  --breakpoint-xsm: 550px;
+}
+
 /* Əsas carusel */
 .custom-swiper-main .swiper-pagination-bullet {
   width: 70px;
