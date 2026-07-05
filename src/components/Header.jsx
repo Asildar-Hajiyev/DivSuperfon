@@ -146,7 +146,7 @@ function Header() {
               <FaBars className="text-2xl sm:text-3xl" />
             </button>
 
-            <Link to="/home">
+            <Link to="/">
               <img
                 className="w-[120px] sm:w-[160px] md:w-[180px] lg:w-[220px] h-auto"
                 src={logo}

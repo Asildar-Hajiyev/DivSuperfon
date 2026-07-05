@@ -12,7 +12,7 @@ function DataContext({ children }) {
     getMenuItems().then((menuItems) => setMenuItems(menuItems));
   }, []);
   return (
-    <DATA.Provider value={{ user, navLinks, menuItems }}>
+    <DATA.Provider value={{ user, navLinks, menuItems  }}>
       {children}
     </DATA.Provider>
   );

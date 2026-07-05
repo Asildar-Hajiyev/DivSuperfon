@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-function Home() {
+function Home_Section3() {
   const {user} = useContext(DATA)
   return (
   <Swiper className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-4"
@@ -43,4 +43,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Home_Section3

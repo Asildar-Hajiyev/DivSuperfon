@@ -13,4 +13,5 @@ async function getMenuItems(){
     return res.data
 }
 
+
 export {getData,getNavLinks,getMenuItems}

@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+.custom-swiper {
+  padding-bottom: 60px; /* pagination üçün yer aç */
+}
+
+.custom-swiper .swiper-pagination {
+  position: static; /* şəklin altına, absolute-dan çıxır */
+  margin-top: 50px;
+}
+
+.custom-swiper .swiper-pagination-bullet {
+  width: 70px;
+  height: 10px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid #d1d5db;
+  opacity: 1;
+  margin: 0 4px;
+}
+
+.custom-swiper .swiper-pagination-bullet-active {
+  background: #fb923c;
+  border-color: #fb923c;
+}
