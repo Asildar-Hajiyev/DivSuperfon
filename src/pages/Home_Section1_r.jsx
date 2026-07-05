@@ -24,6 +24,7 @@ function Home_Section1_r() {
   const days = Math.floor(d / 86400000);
   const hours = Math.floor((d / 3600000) % 24);
   const minutes = Math.floor((d / 60000) % 60);
+ const seconds = Math.floor((d / 1000) % 60);
 
   const pad = (num) => String(num).padStart(2, "0");
 
@@ -47,11 +48,17 @@ function Home_Section1_r() {
             </span>
             <span className="text-[9px] sm:text-xs text-gray-500">saat</span>
           </div>
-          <div className="flex flex-col items-center min-w-[36px] sm:min-w-[50px]">
+          <div className="flex flex-col items-center min-w-[36px] sm:min-w-[50px] border-r lg:border-gray-300 border-green-500 pr-1.5 sm:pr-0">
             <span className="text-xs sm:text-sm lg:text-2xl font-bold lg:text-orange-500 text-green-500">
               {pad(minutes)}
             </span>
             <span className="text-[9px] sm:text-xs text-gray-500">dəqiqə</span>
+          </div>
+          <div className="flex flex-col items-center min-w-[36px] sm:min-w-[50px]">
+            <span className="text-xs sm:text-sm lg:text-2xl font-bold lg:text-orange-500 text-green-500">
+              {pad(seconds)}
+            </span>
+            <span className="text-[9px] sm:text-xs text-gray-500">saniyə</span>
           </div>
         </div>
       </div>
@@ -75,27 +82,31 @@ function Home_Section1_r() {
                 className="flex flex-row lg:flex-col items-center gap-2 lg:gap-0 bg-white border-gray-200 rounded-lg p-2 sm:p-3 lg:p-4 shadow-sm hover:shadow-md transition-shadow duration-300"
                 key={item.id}
               >
-               <div className="flex items-center gap-4 lg:flex-col">
+                <div className="flex items-center gap-4 lg:flex-col">
+                  <div className="w-[120px] lg:w-full aspect-square overflow-hidden rounded-md bg-gray-50 flex-shrink-0">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={item.image}
+                      alt={item.title}
+                    />
+                  </div>
 
-              
-                 <div className="w-[70px] lg:w-full aspect-square overflow-hidden rounded-md bg-gray-50 flex-shrink-0">
-                  <img
-                    className="w-full h-full object-cover"
-                    src={item.image}
-                    alt={item.title}
-                  />
-                </div>
-
-                
                   <div className="flex flex-col items-start lg:items-center flex-1 lg:w-full lg:mt-3">
                     <div className="text-left lg:text-center text-sm sm:text-base text-gray-700 font-medium">
-                      {item.title.slice(11, 50)}...
+                      <span className=" hidden lg:inline">
+                        {item.title.slice(11, 30)}...
+                      </span>
+                      <span className="lg:hidden">
+                        {item.title.slice(11, 50)}...
+                      </span>
+                     
                     </div>
-                    <div className="text-left lg:text-center text-sm sm:text-base text-gray-700 font-medium ">
-                    Öncəki qiymət: <span className="line-through">{item.oldPrice} ₼</span>
+                    <div className="text-left lg:text-center text-xs sm:text-base text-gray-700 font-medium ">
+                      Öncəki qiymət:{" "}
+                      <span className="line-through">{item.oldPrice} ₼</span>
                     </div>
-                    <div className="text-left lg:text-center text-sm sm:text-base text-gray-700 font-medium">
-                    Endirimli qiymət: {item.price} ₼
+                    <div className="text-left lg:text-center text-xs sm:text-base text-gray-700 font-medium">
+                      Endirimli qiymət: {item.price} ₼
                     </div>
 
                     <button className="flex items-center justify-center gap-1.5 sm:gap-2 bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md transition-all duration-300 cursor-pointer mt-2 sm:mt-3 w-fit lg:w-full">
@@ -103,8 +114,7 @@ function Home_Section1_r() {
                       <span className="whitespace-nowrap">Səbətə əlavə et</span>
                     </button>
                   </div>
-               </div>
-              
+                </div>
               </SwiperSlide>
             ))}
         </Swiper>
