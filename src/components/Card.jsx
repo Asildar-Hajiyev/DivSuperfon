@@ -3,7 +3,7 @@ import { CiShoppingCart, CiHeart } from "react-icons/ci";
 function Card({ item, i }) {
   return (
     <div className="group relative w-full max-w-[360px] mx-auto border border-gray-300 rounded-md p-4 flex overflow-hidden">
-      <div className="flex flex-col w-full h-full">
+      <div key={i} className="flex flex-col w-full h-full">
         <div className="w-full aspect-square overflow-hidden">
           <img
             className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-125"

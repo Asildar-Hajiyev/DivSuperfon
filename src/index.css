@@ -1,25 +1,35 @@
 @import "tailwindcss";
 
-.custom-swiper {
-  padding-bottom: 60px; /* pagination üçün yer aç */
-}
-
-.custom-swiper .swiper-pagination {
-  position: static; /* şəklin altına, absolute-dan çıxır */
-  margin-top: 50px;
-}
-
-.custom-swiper .swiper-pagination-bullet {
+/* Əsas carusel */
+.custom-swiper-main .swiper-pagination-bullet {
   width: 70px;
   height: 10px;
   border-radius: 6px;
   background: transparent;
   border: 1px solid #d1d5db;
-  opacity: 1;
-  margin: 0 4px;
+}
+.custom-swiper-main .swiper-pagination-bullet-active {
+  background: #fb923c;
+}
+.custom-swiper-main .swiper-slide img {
+  height: 400px;
+  object-fit: cover;
+  width: 100%;
 }
 
-.custom-swiper .swiper-pagination-bullet-active {
+/* Sale carusel */
+.custom-swiper-sale .swiper-pagination-bullet {
+  width: 40px;
+  height: 8px;
+  border-radius: 4px;
+  background: transparent;
+  border: 1px solid #d1d5db;
+}
+.custom-swiper-sale .swiper-pagination-bullet-active {
   background: #fb923c;
-  border-color: #fb923c;
+}
+.custom-swiper-sale .swiper-slide img {
+  height: 200px;
+  object-fit: cover;
+  /* width: 100%; */
 }
