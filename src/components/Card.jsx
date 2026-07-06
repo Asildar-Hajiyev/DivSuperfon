@@ -1,4 +1,5 @@
 import { CiShoppingCart, CiHeart } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 function Card({ item, i }) {
   return (
@@ -12,9 +13,9 @@ function Card({ item, i }) {
           />
         </div>
 
-        <p className="font-semibold text-sm sm:text-base line-clamp-2 mt-3 h-12 hover:underline hover:text-blue-600 transition">
+        <Link to={`/details/${item.id}`} className="font-semibold text-sm sm:text-base line-clamp-2 mt-3 h-12 hover:underline hover:text-blue-600 transition">
           {item.title}
-        </p>
+        </Link>
 
         <div className="flex-1"></div>
 
