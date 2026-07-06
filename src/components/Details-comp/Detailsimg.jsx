@@ -28,7 +28,6 @@ export default function Detailsimg({ product }) {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      {/* Əsas şəkil */}
       <div className="relative mb-3 border border-gray-200 rounded-xl overflow-hidden">
         {product.isNew && (
           <span className="absolute top-3 left-3 z-10 bg-[#00b259] text-white text-xs font-bold px-3 py-1.5 rounded uppercase tracking-wider">
@@ -40,16 +39,12 @@ export default function Detailsimg({ product }) {
           onSwiper={(swiper) => (mainSwiperRef.current = swiper)}
           loop={images.length > 1}
           spaceBetween={10}
-          navigation={true}
           thumbs={{
             swiper:
               thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
           }}
           modules={[FreeMode, Navigation, Thumbs]}
-          style={{
-            "--swiper-navigation-color": "#000",
-            "--swiper-navigation-size": "20px",
-          }}
+         
           className="w-full aspect-square bg-white"
         >
           {images.map((img, index) => (
@@ -65,8 +60,7 @@ export default function Detailsimg({ product }) {
           ))}
         </Swiper>
       </div>
-
-      {/* Thumbnail-lər */}
+{/* Asagidaki sekiller hisse  */}
       {images.length > 1 && (
         <Swiper
           onSwiper={setThumbsSwiper}
