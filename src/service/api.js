@@ -1,7 +1,7 @@
 import axios from "axios"
 
 async function getData(){
-    const res = await axios.get('http://localhost:3000/api/elekmeiset')
+    const res = await axios.get('http://localhost:3000/api/alldata')
     return res.data
 }
 async function getNavLinks(){
