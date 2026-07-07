@@ -12,7 +12,7 @@ import { CiShoppingCart } from "react-icons/ci";
 
 function Home_Section1_r() {
   const { user } = useContext(DATA);
-  const endDate = new Date("2026-07-06T00:00:00");
+  const endDate = new Date("2026-08-09T00:00:00");
   const [timeLeft, setTimeLeft] = useState(endDate - new Date());
 
   useEffect(() => {
