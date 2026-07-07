@@ -7,7 +7,7 @@ function Card({ item, i }) {
       <div key={i} className="flex flex-col w-full h-full">
         <div className="w-full aspect-square overflow-hidden">
           <img
-            className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-125"
+            className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-125 "
             src={item.image}
             alt={item.title}
           />
