@@ -5,7 +5,7 @@ import Card from "../components/Card"
 function ProductCart() {
     const {user} =useContext(DATA)
   return (
-    <div className=" flex items-center flex-wrap">
+    <div className="grid grid-cols-3 gap-6">
       {user.map((item,i)=>(
         <Card item={item} i={i}/>
       ))}
