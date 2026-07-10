@@ -3,7 +3,6 @@ import { DATA } from "../Context/Context";
 import { Link, useParams } from "react-router-dom";
 import Detailsimg from "./Details-comp/Detailsimg";
 import { CiCircleCheck, CiBoxes, CiHeart } from "react-icons/ci";
-import { FaArrowLeftLong } from "react-icons/fa6";
 
 function Details() {
   const { source, id } = useParams();
