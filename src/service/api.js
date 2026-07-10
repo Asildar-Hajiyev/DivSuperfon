@@ -1,7 +1,7 @@
 import axios from "axios"
 
 async function getData(){
-    const res = await axios.get('http://localhost:3000/api/alldata')
+    const res = await axios.get('http://localhost:3000/api/data')
     return res.data
 }
 async function getNavLinks(){
@@ -16,11 +16,12 @@ async function getStoreData(){
     const res = await axios.get('http://localhost:3000/api/storelocation')
     return res.data
 }
-async function getData2(){
-    const res = await axios.get('http://localhost:3000/api/alldata2')
+
+async function getData3(){
+    const res = await axios.get('http://localhost:3000/api/alldata3')
     return res.data
 }
 
 
 
-export {getData,getData2,getNavLinks,getMenuItems,getStoreData}
+export {getData,getData3,getNavLinks,getMenuItems,getStoreData }

@@ -7,10 +7,14 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import Brandsec from "./Brandsec";
 
 function Home_Section2() {
-  const { user2 } = useContext(DATA);
+  const { user } = useContext(DATA);
 
+  const filteredProducts = user ? user.filter(
+    (item) => item.category === "Kompüter Aksesuarları"
+  ) : [];
   return (
    <>
     <Swiper
@@ -36,13 +40,13 @@ function Home_Section2() {
         },
       }}
     >
-      {user2.map((item, i) => (
+      {filteredProducts.map((item, i) => (
         <SwiperSlide key={item.id || i}>
-          <Card item={{ ...item, source: "user2" }} i={i} />
+          <Card item={item} i={i} />
         </SwiperSlide>
       ))}
     </Swiper>
-    
+    <Brandsec/>
    </>
   );
 }

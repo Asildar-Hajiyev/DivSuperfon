@@ -38,7 +38,7 @@ function Advantages() {
       </div>
       <div className="flex items-center justify-between p-2 sm:p-4 md:p-5 lg:p-6 border-b border-gray-300">
         <h2 className="text-2xl">Yeniliklər</h2>
-        <Link className="flex items-center gap-2 hover:underline transition-all duration-300 text-blue-500 text-sm">
+        <Link to="/products" className="flex items-center gap-2 hover:underline transition-all duration-300 text-blue-500 text-sm">
           Hamısına bax <FaArrowRightLong className="text-sm"/>
         </Link>
       </div>

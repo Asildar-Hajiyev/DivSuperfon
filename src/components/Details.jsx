@@ -1,19 +1,21 @@
 import { useContext, useEffect } from "react";
 import { DATA } from "../Context/Context";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Detailsimg from "./Details-comp/Detailsimg";
 import { CiCircleCheck, CiBoxes, CiHeart } from "react-icons/ci";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 function Details() {
-  const {source, id } = useParams();
-  const { user , user2 } = useContext(DATA);
+  const { source, id } = useParams();
+  const { user, user2 } = useContext(DATA);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  // const allProducts = [...user, ...user2]
-  const product = (source === "user2" ? user2 : user).find((item) => item.id === Number(id));
+  const product = (source === "user2" ? user2 : user).find(
+    (item) => item.id === Number(id),
+  );
 
   if (!product) {
     return (
@@ -23,13 +25,32 @@ function Details() {
 
   return (
     <>
+      <div className="max-w-7xl mx-auto px-4 pt-4">
+        <nav className="flex items-center gap-2 text-sm text-gray-500">
+          <Link to="/" className="hover:text-green-600">
+            Ana səhifə
+          </Link>
+
+          <span>/</span>
+
+          <Link
+            to={`/products?category=${product.category}`}
+            className="hover:text-green-600"
+          >
+            {product.category}
+          </Link>
+
+          <span>/</span>
+
+          <span className="text-black font-medium">{product.title}</span>
+        </nav>
+      </div>
+
       <div className="flex flex-col md:flex-row items-center md:items-start mt-6 md:mt-12 p-4 md:p-8 gap-6 md:gap-8 max-w-7xl mx-auto ">
-       
         <div className="w-full md:w-auto flex justify-center">
           <Detailsimg product={product} />
         </div>
 
-  
         <div className="flex flex-col items-start gap-2 w-full">
           <h2 className="font-semibold text-xl md:text-2xl">{product.title}</h2>
 

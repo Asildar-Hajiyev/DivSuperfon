@@ -8,6 +8,7 @@ import Main from "../pages/Main";
 import Home_Section3 from "../pages/Home_Section3";
 import Home_Section1 from "../pages/Home_Section1";
 import Details from "../components/Details";
+import Products from "../pages/Products";
 
 function AppRouter() {
   return (
@@ -22,6 +23,7 @@ function AppRouter() {
         <Route path="/home_section3" element={<Home_Section3/>}/>
         <Route path="/card" element={<Card/>}/>
         <Route path="/details/:source/:id" element={<Details/>}/>
+        <Route path="/products" element={<Products/>}/>
       </Routes>
     </>
   );
