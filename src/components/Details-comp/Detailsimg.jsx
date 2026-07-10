@@ -44,7 +44,6 @@ export default function Detailsimg({ product }) {
               thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
           }}
           modules={[FreeMode, Navigation, Thumbs]}
-         
           className="w-full aspect-square bg-white"
         >
           {images.map((img, index) => (
@@ -60,27 +59,27 @@ export default function Detailsimg({ product }) {
           ))}
         </Swiper>
       </div>
-{/* Asagidaki sekiller hisse  */}
+      {/* Asagidaki sekiller hisse  */}
       {images.length > 1 && (
         <Swiper
           onSwiper={setThumbsSwiper}
           loop={false}
           spaceBetween={10}
-          slidesPerView={4}
-          freeMode={true}
-          watchSlidesProgress={true}
+          slidesPerView="auto"
+          freeMode
+          watchSlidesProgress
           modules={[FreeMode, Thumbs]}
         >
           {images.map((img, index) => (
             <SwiperSlide
               key={index}
-              className="cursor-pointer"
+              className="!w-[70px] cursor-pointer"
               onClick={() => handleThumbClick(index)}
             >
-              <div className="border border-gray-200 rounded-lg overflow-hidden aspect-square flex items-center justify-center p-2 bg-white hover:border-[#00b259] transition-all duration-200">
+              <div className="border border-gray-200 rounded-lg overflow-hidden aspect-square p-2 bg-white">
                 <img
                   src={img}
-                  alt={`Miniatür ${index + 1}`}
+                  alt=""
                   className="w-full h-full object-contain"
                 />
               </div>

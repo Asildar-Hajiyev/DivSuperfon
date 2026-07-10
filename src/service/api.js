@@ -16,7 +16,11 @@ async function getStoreData(){
     const res = await axios.get('http://localhost:3000/api/storelocation')
     return res.data
 }
+async function getData2(){
+    const res = await axios.get('http://localhost:3000/api/alldata2')
+    return res.data
+}
 
 
 
-export {getData,getNavLinks,getMenuItems,getStoreData}
+export {getData,getData2,getNavLinks,getMenuItems,getStoreData}

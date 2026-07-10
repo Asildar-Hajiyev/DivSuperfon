@@ -35,7 +35,7 @@ function Home_Section3() {
 >
   {user.map((item, i) => (
     <SwiperSlide key={item.id || i}>
-      <Card item={item} i={i} />
+      <Card item={{ ...item, source: "user" }} i={i} />
     </SwiperSlide>
   ))}
 </Swiper>

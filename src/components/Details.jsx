@@ -5,14 +5,15 @@ import Detailsimg from "./Details-comp/Detailsimg";
 import { CiCircleCheck, CiBoxes, CiHeart } from "react-icons/ci";
 
 function Details() {
-  const { id } = useParams();
-  const { user } = useContext(DATA);
+  const {source, id } = useParams();
+  const { user , user2 } = useContext(DATA);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  const product = user.find((item) => item.id === Number(id));
+  // const allProducts = [...user, ...user2]
+  const product = (source === "user2" ? user2 : user).find((item) => item.id === Number(id));
 
   if (!product) {
     return (

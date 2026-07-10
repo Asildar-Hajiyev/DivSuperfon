@@ -24,14 +24,13 @@ function Home_Section1_r() {
   const days = Math.floor(d / 86400000);
   const hours = Math.floor((d / 3600000) % 24);
   const minutes = Math.floor((d / 60000) % 60);
- const seconds = Math.floor((d / 1000) % 60);
 
   const pad = (num) => String(num).padStart(2, "0");
 
   const saleItems = user.filter((item) => item.onSale);
   return (
-    <div className="rounded-md bg-gray-100 p-4 sm:p-6 w-full h-[350px] overflow-y-auto lg:h-auto lg:overflow-visible lg:w-[300px] lg:max-w-none lg:mx-0">
-      <div className="flex items-center justify-between flex-col sm:flex-row lg:flex-col gap-2 rounded-md p-2 sm:p-4">
+    <div className="rounded-md lg:bg-gray-100 p-4 border border-gray-300 lg:border-none lg:p-6 w-full lg:h-[350px] overflow-y-auto lg:h-auto lg:overflow-visible lg:w-[300px] lg:max-w-none lg:mx-0">
+      <div className="flex items-center justify-between lg:flex-col sm:flex-row lg:flex-col gap-2  p-2 sm:p-4 lg:border-none border-b border-gray-300">
         <h2 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-800">
           Həftənin təklifləri
         </h2>
@@ -53,12 +52,6 @@ function Home_Section1_r() {
               {pad(minutes)}
             </span>
             <span className="text-[9px] sm:text-xs text-gray-500">dəqiqə</span>
-          </div>
-          <div className="flex flex-col items-center min-w-[36px] sm:min-w-[50px]">
-            <span className="text-xs sm:text-sm lg:text-2xl font-bold lg:text-orange-500 text-green-500">
-              {pad(seconds)}
-            </span>
-            <span className="text-[9px] sm:text-xs text-gray-500">saniyə</span>
           </div>
         </div>
       </div>
@@ -83,7 +76,7 @@ function Home_Section1_r() {
                 key={item.id}
               >
                 <div className="flex items-center gap-4 lg:flex-col">
-                  <div className="w-[120px] lg:w-full aspect-square overflow-hidden rounded-md bg-gray-50 flex-shrink-0">
+                  <div className="lg:w-[120px] w-[80px] lg:w-full aspect-square overflow-hidden rounded-md bg-gray-50 flex-shrink-0">
                     <img
                       className="w-full h-full object-cover"
                       src={item.image}
@@ -94,24 +87,21 @@ function Home_Section1_r() {
                   <div className="flex flex-col items-start lg:items-center flex-1 lg:w-full lg:mt-3">
                     <div className="text-left lg:text-center text-sm sm:text-base text-gray-700 font-medium">
                       <span className=" hidden lg:inline">
-                        {item.title.slice(11, 30)}...
+                        {item.title.slice(0, 15)}...
                       </span>
                       <span className="lg:hidden">
-                        {item.title.slice(11, 50)}...
+                        {item.title.slice(0, 50)}...
                       </span>
                      
-                    </div>
-                    <div className="text-left lg:text-center text-xs sm:text-base text-gray-700 font-medium ">
-                      Öncəki qiymət:{" "}
-                      <span className="line-through">{item.oldPrice} ₼</span>
                     </div>
                     <div className="text-left lg:text-center text-xs sm:text-base text-gray-700 font-medium">
                       Endirimli qiymət: {item.price} ₼
                     </div>
 
-                    <button className="flex items-center justify-center gap-1.5 sm:gap-2 bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md transition-all duration-300 cursor-pointer mt-2 sm:mt-3 w-fit lg:w-full">
+                    <button className="flex items-center justify-center gap-1.5 sm:gap-2 bg-gray-200 hover:bg-gray-300 lg:bg-green-600 lg:hover:bg-green-700 lg:text-white text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md transition-all duration-300 cursor-pointer mt-2 sm:mt-3 w-fit lg:w-full">
                       <CiShoppingCart className="text-base sm:text-lg" />
-                      <span className="whitespace-nowrap">Səbətə əlavə et</span>
+                      <span className="whitespace-nowrap hidden lg:flex">Səbətə əlavə et</span>
+                      <span className="whitespace-nowrap flex lg:hidden">Səbətə at</span>
                     </button>
                   </div>
                 </div>
@@ -120,7 +110,7 @@ function Home_Section1_r() {
         </Swiper>
       </div>
       <Link
-        className="block text-center w-full hover:underline transition-all duration-150 mt-2"
+        className="hidden lg:block text-center w-full hover:underline transition-all duration-150 mt-2 "
         to="/"
       >
         Bütün təkliflərə bax

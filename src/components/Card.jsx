@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Card({ item, i }) {
   return (
-    <div className="group relative w-full max-w-[360px] mx-auto border border-gray-300 rounded-md p-4 flex overflow-hidden">
+    <div className="group relative w-full max-w-[360px] mx-auto border border-gray-300 rounded-md p-4 flex overflow-hidden my-4">
       <div key={i} className="flex flex-col w-full h-full">
         <div className="w-full aspect-square overflow-hidden">
           <img
@@ -13,7 +13,7 @@ function Card({ item, i }) {
           />
         </div>
 
-        <Link to={`/details/${item.id}`} className="font-semibold text-sm sm:text-base line-clamp-2 mt-3 h-12 hover:underline hover:text-blue-600 transition">
+        <Link to={`/details/${item.source}/${item.id}`} className="font-semibold text-sm sm:text-base line-clamp-2 mt-3 h-12 hover:underline hover:text-blue-600 transition">
           {item.title}
         </Link>
 
