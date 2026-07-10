@@ -1,7 +1,11 @@
+import { useEffect } from "react";
 import { CiHeart } from "react-icons/ci";
 
 const wishlist = []
 function Favorite() {
+   useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   return (
     <>
      {

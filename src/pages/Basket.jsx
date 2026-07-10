@@ -1,8 +1,12 @@
 import { FaRegTrashCan } from "react-icons/fa6";
 import { CiCircleInfo, CiShoppingCart } from "react-icons/ci";
+import { useEffect } from "react";
 
 function Basket() {
   const sebet = [1];
+   useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   return (
     <>
       {sebet.length === 0 ? (
