@@ -9,6 +9,7 @@ import Home_Section3 from "../pages/Home_Section3";
 import Home_Section1 from "../pages/Home_Section1";
 import Details from "../components/Details";
 import Products from "../pages/Products";
+import Login from "../pages/Login";
 
 function AppRouter() {
   return (
@@ -24,6 +25,7 @@ function AppRouter() {
         <Route path="/card" element={<Card/>}/>
         <Route path="/details/:source/:id" element={<Details/>}/>
         <Route path="/products" element={<Products/>}/>
+        <Route path="/login" element={<Login/>}/>
       </Routes>
     </>
   );

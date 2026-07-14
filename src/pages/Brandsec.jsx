@@ -14,7 +14,7 @@ function Brandsec() {
 
   return (
     <>
-     
+     {/* logo hisse */}
       <div className="flex items-center justify-between p-4 md:p-5 lg:p-6 border-b border-gray-300 mb-6">
         <h2 className="text-xl sm:text-2xl font-semibold">Yeniliklər</h2>
         <Link 

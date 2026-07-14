@@ -1,3 +1,5 @@
+// sec1 asagi lazimsiz hissesi))
+
 import { MdOutlinePayment } from "react-icons/md";
 import { HiOutlineTruck } from "react-icons/hi2";
 import { IoExitOutline } from "react-icons/io5";
@@ -16,6 +18,7 @@ function Advantages() {
   ];
 
   return (
+    
     <div className="">
       <div className="flex items-stretch justify-between rounded-md bg-gray-100 my-4 gap-1 sm:gap-3 md:gap-4 lg:gap-5 py-12">
         {iconsec2.map(({ id, icon: Icon, title, path }, index) => (

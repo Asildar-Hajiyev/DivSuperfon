@@ -186,10 +186,10 @@ function Header() {
               {/* Hesab */}
               <div className="flex items-center gap-2 px-3 cursor-pointer">
                 <FiUser className="text-2xl" />
-                <div className="flex flex-col text-xs">
+                <Link to="/login" className="flex flex-col text-xs">
                   <span className="font-semibold text-gray-400">Daxil ol</span>
                   <span className="font-semibold">Hesab</span>
-                </div>
+                </Link>
               </div>
             </div>
           </div>

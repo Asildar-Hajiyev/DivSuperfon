@@ -43,7 +43,7 @@ function BasketContext({ children }) {
 
   const totalCount = sebet.reduce((total, item) => total + item.quantity, 0);
   const totalPrice = sebet.reduce((total, item) => total + item.price * item.quantity, 0,);
-  const discount = totalCount >= 3 ? 20 : 0;
+  const discount = totalCount >= 15 ? 100 :  totalCount >= 10 ? 64 : totalCount >= 6 ? 48 : totalCount >= 3 ? 21 : 0;
   const finalPrice = Math.max(totalPrice - discount, 0);
 
   return (

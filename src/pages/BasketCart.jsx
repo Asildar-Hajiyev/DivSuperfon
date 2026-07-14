@@ -13,7 +13,7 @@ function BasketCart() {
               </div>
               <div className="flex justify-between py-3">
                 <p>Cəmi məbləğ</p>
-                <span> {totalPrice} ₼</span>
+                <span> {(Math.round(totalPrice)*100)/100} ₼</span>
               </div>
 
               <div className="flex justify-between py-3">
