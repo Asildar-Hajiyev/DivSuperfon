@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { CiShoppingCart, CiHeart } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { BASKET } from "../Context/Context";
 
 function Card({ item, i }) {
+   const {addBasket} = useContext(BASKET)
   return (
     <div className="group relative w-full max-w-[360px] mx-auto border border-gray-300 rounded-md p-4 flex overflow-hidden my-4">
       <div key={i} className="flex flex-col w-full h-full">
@@ -24,7 +27,7 @@ function Card({ item, i }) {
             {item.price} ₼
           </span>
 
-          <button className="flex items-center gap-0 group-hover:gap-2 bg-green-600 text-white px-3 py-2 rounded-md transition-all duration-500 cursor-pointer">
+          <button onClick={()=>addBasket(item.id,item.image,item.title,item.price)} className="flex items-center gap-0 group-hover:gap-2 bg-green-600 text-white px-3 py-2 rounded-md transition-all duration-500 cursor-pointer">
             <CiShoppingCart className="text-xl sm:text-2xl" />
             <span className="max-w-0 opacity-0 overflow-hidden whitespace-nowrap group-hover:max-w-[150px] group-hover:opacity-100 transition-all duration-500 text-sm">
               Səbətə əlavə et

@@ -1,3 +1,4 @@
 import { createContext } from "react";
 
 export const DATA = createContext([])
+export const BASKET = createContext([])

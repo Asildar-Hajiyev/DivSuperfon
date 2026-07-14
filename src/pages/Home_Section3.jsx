@@ -13,6 +13,7 @@ function Home_Section3() {
    const filteredProducts = user ? user.filter(
     (item) => item.category === "Digər"
   ) : [];
+ 
   return (
   <Swiper className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-4"
   modules={[Navigation, Pagination, Autoplay]}

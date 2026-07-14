@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { DATA } from "../Context/Context";
+import { BASKET, DATA } from "../Context/Context";
 import { Link, useParams } from "react-router-dom";
 import Detailsimg from "./Details-comp/Detailsimg";
 import { CiCircleCheck, CiBoxes, CiHeart } from "react-icons/ci";
@@ -22,6 +22,7 @@ function Details() {
     );
   }
 
+  const {addBasket} = useContext(BASKET)
   return (
     <>
       <div className="max-w-7xl mx-auto px-4 pt-4">
@@ -82,7 +83,7 @@ function Details() {
                   </button>
                 </div>
 
-                <button className="h-12 flex-1 rounded-md bg-green-600 text-white font-medium hover:bg-green-700 transition cursor-pointer order-3 md:order-2">
+                <button onClick={()=>addBasket(product.id,product.image,product.title,product.price)} className="h-12 flex-1 rounded-md bg-green-600 text-white font-medium hover:bg-green-700 transition cursor-pointer order-3 md:order-2">
                   Səbətə əlavə et
                 </button>
 

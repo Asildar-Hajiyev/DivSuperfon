@@ -20,7 +20,7 @@ import { LuHouse } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa";
 
 import { Link, NavLink } from "react-router-dom";
-import { DATA } from "../Context/Context";
+import { DATA ,BASKET } from "../Context/Context";
 
 const ICONS = {
   FaCreditCard,
@@ -113,7 +113,8 @@ function Header() {
 
 /* Əgər navLinks və ya menuItems yoxdusa underfined etme bos [] array qaytar */
   const { navLinks = [], menuItems = [] } = useContext(DATA);
-
+  const {sebet = []} = useContext(BASKET) 
+  const cartCount = sebet.length;
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -144,6 +145,7 @@ function Header() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
 
   return (
     <>
@@ -234,9 +236,16 @@ function Header() {
               >
                 <IoSearchOutline className="text-3xl sm:text-4xl" />
               </button>
-
+                {/* mobile basketim */}
               <Link to="/basket" className="p-1 -m-1">
-                <CiShoppingCart className="text-3xl sm:text-4xl" />
+                <span className="relative inline-flex">
+                  <CiShoppingCart className="text-3xl sm:text-4xl" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-2 min-w-[16px] h-[16px] px-[3px] rounded-full bg-red-500 text-white text-[9px] font-semibold flex items-center justify-center leading-none">
+                      {cartCount > 99 ? "99+" : cartCount}
+                    </span>
+                  )}
+                </span>
               </Link>
             </div>
           </div>
@@ -295,13 +304,20 @@ function Header() {
             </Link>
 
             {/* Səbət */}
-            <Link to="/basket" className="flex items-center gap-2 whitespace-nowrap shrink-0">
+          <Link to="/basket" className="flex items-center gap-2 whitespace-nowrap shrink-0">
+            <span className="relative inline-flex">
               <CiShoppingCart className="text-4xl" />
-              <div className="flex flex-col">
-                <span className="text-gray-400 text-sm">Məbləğ</span>
-                <span className="text-base font-medium">0.00 ₼</span>
-              </div>
-            </Link>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-2 min-w-[16px] h-[16px] px-[3px] rounded-full bg-red-500 text-white text-[9px] font-semibold flex items-center justify-center leading-none">
+                  {cartCount > 99 ? "99+" : cartCount}
+                </span>
+              )}
+            </span>
+            <div className="flex flex-col">
+              <span className="text-gray-400 text-sm">Məbləğ</span>
+              <span className="text-base font-medium">0.00 ₼</span>
+            </div>
+          </Link>
           </div>
 
           {/* Yenilənmiş Mobil Axtarış Sahəsi */}

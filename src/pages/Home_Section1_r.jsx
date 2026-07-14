@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import { DATA } from "../Context/Context";
+import { BASKET, DATA } from "../Context/Context";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -28,6 +28,7 @@ function Home_Section1_r() {
   const pad = (num) => String(num).padStart(2, "0");
 
   const saleItems = user.filter((item) => item.onSale);
+  const {addBasket} = useContext(BASKET)
   return (
     <div className="rounded-md lg:bg-gray-100 p-4 border border-gray-300 lg:border-none lg:p-6 w-full lg:h-[350px] overflow-y-auto lg:h-auto lg:overflow-visible lg:w-[300px] lg:max-w-none lg:mx-0">
       <div className="flex items-center justify-between lg:flex-col sm:flex-row lg:flex-col gap-2  p-2 sm:p-4 lg:border-none border-b border-gray-300">
@@ -100,8 +101,8 @@ function Home_Section1_r() {
 
                     <button className="flex items-center justify-center gap-1.5 sm:gap-2 bg-gray-200 hover:bg-gray-300 lg:bg-green-600 lg:hover:bg-green-700 lg:text-white text-xs sm:text-sm px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-md transition-all duration-300 cursor-pointer mt-2 sm:mt-3 w-fit lg:w-full">
                       <CiShoppingCart className="text-base sm:text-lg" />
-                      <span className="whitespace-nowrap hidden lg:flex">Səbətə əlavə et</span>
-                      <span className="whitespace-nowrap flex lg:hidden">Səbətə at</span>
+                      <span onClick={()=>addBasket(item.id,item.image,item.title,item.price)} className="whitespace-nowrap hidden lg:flex">Səbətə əlavə et</span>
+                      <span onClick={()=>addBasket(item.id,item.image,item.title,item.price)} className="whitespace-nowrap flex lg:hidden">Səbətə at</span>
                     </button>
                   </div>
                 </div>
