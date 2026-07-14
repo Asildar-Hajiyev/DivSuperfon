@@ -7,14 +7,14 @@ function Products() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="max-w-7xl mx-auto grid grid-cols-12 gap-6 mt-4 ">
-      <aside className="col-span-3 border-r border-gray-300 pr-6">
-        <div className="sticky top-28 h-[calc(100vh-7rem)] overflow-y-auto hide-scrollba">
+    <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4 px-4 lg:px-0">
+      <aside className="lg:col-span-3 lg:border-r lg:border-gray-300 lg:pr-6">
+        <div className="lg:sticky lg:top-28 lg:h-[calc(100vh-7rem)] lg:overflow-y-auto hide-scrollba">
           <ProductsCategory />
         </div>
       </aside>
 
-      <main className="col-span-9 pl-6">
+      <main className="lg:col-span-9 lg:pl-6">
         <ProductCart />
       </main>
     </div>
