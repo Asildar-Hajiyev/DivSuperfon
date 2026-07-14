@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { BASKET } from "../Context/Context";
+import { Link } from "react-router-dom";
 function BasketSummery() {
     const {sebet  , removeBasketCart , incQuantity , decQuantity} = useContext(BASKET)
   return (
@@ -14,10 +15,10 @@ function BasketSummery() {
                   <img
                     className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] rounded-lg object-cover shrink-0"
                     src={item.image}
-                    alt=""
+                    alt={item.title}
                   />
                   <div className="flex flex-col gap-2 sm:gap-3 items-center sm:items-start text-center sm:text-left w-full">
-                    <h2 className="font-semibold text-lg leading-snug">{item.title}</h2>
+                    <Link to={`/details/${item.source}/${item.id}`} className="font-semibold text-lg leading-snug">{item.title}</Link>
 
                     <span className="text-xl font-bold text-[#001623]">{Math.round((item.price > 1 ? item.price * item.quantity : item.price)*100)/100} ₼</span>
 
