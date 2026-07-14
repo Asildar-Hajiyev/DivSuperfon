@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { CiCircleInfo } from "react-icons/ci";
+import { BASKET } from "../Context/Context";
 
 function BasketCart() {
+  const { totalPrice , discount , finalPrice} = useContext(BASKET)
   return (
     <div className="w-full lg:w-[380px]">
             <div className="border border-gray-200 rounded-xl p-5 shadow-sm bg-white lg:sticky lg:top-30">
@@ -10,12 +13,12 @@ function BasketCart() {
               </div>
               <div className="flex justify-between py-3">
                 <p>Cəmi məbləğ</p>
-                <span>350.79 ₼</span>
+                <span> {totalPrice} ₼</span>
               </div>
 
               <div className="flex justify-between py-3">
                 <p>Endirim</p>
-                <span className="font-semibold">-31.31 ₼</span>
+                <span className="font-semibold">{discount} ₼</span>
               </div>
               <div className="flex justify-between items-center py-3 text-lg">
                 <p>Çatdırılma</p>
@@ -28,7 +31,7 @@ function BasketCart() {
 
               <div className="border-t mt-3 pt-4 flex justify-between font-semibold text-lg">
                 <p>Yekun</p>
-                <span>319.48 ₼</span>
+                <span>{Math.round(finalPrice * 100) / 100} ₼</span>
               </div>
 
               <button className="w-full mt-5 py-3 rounded-lg bg-[#001623] text-white hover:bg-[#49637b] transition">
