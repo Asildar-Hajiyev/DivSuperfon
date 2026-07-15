@@ -1,10 +1,16 @@
 import { useContext } from "react";
 import { CiShoppingCart, CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { BASKET } from "../Context/Context";
+import { BASKET, WISHLIST } from "../Context/Context";
 
 function Card({ item, i }) {
    const {addBasket} = useContext(BASKET)
+   const {addWishlist, removeWislistCart , wistList} = useContext(WISHLIST)
+   const isInWishlist = wistList.filter((el) => el.id === item.id).length > 0;
+   function wishListOnClickMove(){
+    isInWishlist ? removeWislistCart(item.id) : addWishlist(item.id,item.image,item.title,item.price)
+   }
   return (
     <div className="group relative w-full max-w-[360px] mx-auto border border-gray-300 rounded-md p-4 flex overflow-hidden my-4">
       <div key={i} className="flex flex-col w-full h-full">
@@ -36,8 +42,16 @@ function Card({ item, i }) {
         </div>
       </div>
 
-      <div className="absolute top-4 right-4 bg-white p-2 rounded-full border border-gray-100 shadow-lg cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-300 text-gray-500 hover:text-red-500 hover:border-red-500">
-        <CiHeart className="text-2xl" />
+      <div onClick={wishListOnClickMove} className={`absolute top-4 right-4 bg-white p-2 rounded-full border shadow-lg cursor-pointer transition-all duration-300 ${
+          isInWishlist
+            ? "opacity-100 border-red-500 text-red-500"
+            : "opacity-100 md:opacity-0 md:group-hover:opacity-100 border-gray-100 text-gray-500 hover:text-red-500 hover:border-red-500"
+        }`}>
+       {isInWishlist ? (
+          <CiHeart className="text-2xl" />
+        ) : (
+          <CiHeart className="text-2xl" />
+        )}
       </div>
 
       <div

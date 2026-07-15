@@ -20,7 +20,7 @@ import { LuHouse } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa";
 
 import { Link, NavLink } from "react-router-dom";
-import { DATA ,BASKET } from "../Context/Context";
+import { DATA ,BASKET ,WISHLIST } from "../Context/Context";
 
 const ICONS = {
   FaCreditCard,
@@ -115,6 +115,10 @@ function Header() {
   const { navLinks = [], menuItems = [] } = useContext(DATA);
   const {sebet = []} = useContext(BASKET) 
   const cartCount = sebet.length;
+  const {wistList = []} = useContext(WISHLIST)
+  const heartCount = wistList.length
+ const { finalPrice} = useContext(BASKET)
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -300,7 +304,15 @@ function Header() {
             </div>
             {/* Ürək */}
             <Link to="/favorite" className="shrink-0">
+               <span className="relative inline-flex">
               <CiHeart className="text-4xl" />
+              
+              {heartCount > 0 && (
+                <span className="absolute -top-1 -right-2 min-w-[16px] h-[16px] px-[3px] rounded-full bg-red-500 text-white text-[9px] font-semibold flex items-center justify-center leading-none">
+                  {heartCount > 99 ? "99+" : heartCount}
+                </span>
+              )}
+            </span>
             </Link>
 
             {/* Səbət */}
@@ -315,7 +327,7 @@ function Header() {
             </span>
             <div className="flex flex-col">
               <span className="text-gray-400 text-sm">Məbləğ</span>
-              <span className="text-base font-medium">0.00 ₼</span>
+              <span className="text-base font-medium">{(Math.round(finalPrice)*100)/100} ₼</span>
             </div>
           </Link>
           </div>
