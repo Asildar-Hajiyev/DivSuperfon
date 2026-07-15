@@ -5,16 +5,15 @@ import Detailsimg from "./Details-comp/Detailsimg";
 import { CiCircleCheck, CiBoxes, CiHeart } from "react-icons/ci";
 
 function Details() {
-  const { source, id } = useParams();
-  const { user, user2 } = useContext(DATA);
-  const {addBasket} = useContext(BASKET)
-  const {checkedWislist} = useContext(WISHLIST)
-
+  const { id } = useParams();
+  const { user } = useContext(DATA);
+  const {addBasket , incQuantity , decQuantity} = useContext(BASKET)
+  const {checkedWislist , wishListOnClickMove } = useContext(WISHLIST)
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  const product = (source === "user2" ? user2 : user).find(
+  const product = user.find(
     (item) => item.id === Number(id),
   );
 
@@ -73,13 +72,13 @@ function Details() {
             <div className="border-b border-gray-200 pb-5 mb-5">
               <div className="flex flex-col lg:flex-row gap-3">
                 <div className="flex items-center justify-between h-12 w-full lg:w-32 border border-gray-300 rounded-md px-3 order-1 md:order-1">
-                  <button className="text-xl font-semibold hover:text-green-600 transition cursor-pointer">
+                  <button onClick={()=>(decQuantity(product.id))} className="text-xl font-semibold hover:text-green-600 transition cursor-pointer">
                     -
                   </button>
 
-                  <span className="font-semibold text-lg">1</span>
+                  <span className="font-semibold text-lg">{product.quantity}</span>
 
-                  <button className="text-xl font-semibold hover:text-green-600 transition cursor-pointer">
+                  <button  onClick={()=>incQuantity(product.id)} className="text-xl font-semibold hover:text-green-600 transition cursor-pointer">
                     +
                   </button>
                 </div>
@@ -92,9 +91,23 @@ function Details() {
                   İndi al
                 </button>
 
-                <button onClick={checkedWislist} className="h-12 w-full lg:w-12 border border-gray-300 rounded-md flex items-center justify-center hover:bg-gray-100 transition cursor-pointer order-2 md:order-4">
-                  <CiHeart className="text-2xl text-gray-500 hover:text-red-500 transition" />
-                </button>
+              
+
+              <button
+                onClick={() => wishListOnClickMove(product)}
+                className={`h-12 w-full lg:w-12 border border-gray-300 rounded-md flex items-center justify-center hover:bg-gray-100 transition cursor-pointer order-2 md:order-4 ${
+                  checkedWislist(product)
+                    ? "bg-white border-gray-300 text-red-500 border-red-500 scale-105"
+                    : "bg-white border-gray-300 text-gray-500 hover:text-red-500 hover:border-red-500"
+                }`}
+                title="Sevimlilərə əlavə et"
+              >
+                <CiHeart
+                  className={`text-2xl transition ${
+                    checkedWislist(product) ? "text-red-500" : "text-gray-500 hover:text-red-500"
+                  }`}
+                />
+              </button>
               </div>
             </div>
 

@@ -20,7 +20,7 @@ function Card({ item, i }) {
         </div>
 
         <Link
-          to={`/details/${item.source}/${item.id}`}
+          to={`/details/${item.id}`}
           className="font-semibold text-sm sm:text-base line-clamp-2 mt-3 h-12 hover:underline hover:text-blue-600 transition"
         >
           {item.title}

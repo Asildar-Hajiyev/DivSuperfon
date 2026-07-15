@@ -10,17 +10,18 @@ import {
   FaRegObjectUngroup,
 } from "react-icons/fa6";
 import { IoSearchOutline, IoLanguageOutline, IoClose } from "react-icons/io5";
-import { CiShoppingCart, CiHeart , CiUser  } from "react-icons/ci";
+import { CiShoppingCart, CiHeart, CiUser } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 import { FiUser, FiWatch } from "react-icons/fi";
-import { PiCarProfileThin ,PiChatTextLight  } from "react-icons/pi";
-import { HiBars3BottomRight } from "react-icons/hi2";
+import { PiCarProfileThin, PiChatTextLight } from "react-icons/pi";
+
 import { GiScales } from "react-icons/gi";
 import { LuHouse } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa";
 
 import { Link, NavLink } from "react-router-dom";
-import { DATA ,BASKET ,WISHLIST } from "../Context/Context";
+import { DATA, BASKET, WISHLIST } from "../Context/Context";
+import Catalog from "./Catalog";
 
 const ICONS = {
   FaCreditCard,
@@ -37,7 +38,6 @@ function LangSelector({ selectedLang, onSelect, className = "" }) {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
 
-  
   useEffect(() => {
     function handleClickOutside(e) {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
@@ -99,7 +99,7 @@ const NAV_ITEMS = [
   { to: "/favorite", label: "İstəklər", Icon: FaRegHeart },
   { to: "/chat", label: "Çat", Icon: PiChatTextLight },
   { to: "/compare", label: "Müqayisə", Icon: GiScales },
-  { to: "/account", label: "Hesab", Icon: CiUser },
+  { to: "/login", label: "Hesab", Icon: CiUser },
 ];
 
 function Header() {
@@ -111,13 +111,13 @@ function Header() {
   const headerRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState(0);
 
-/* Əgər navLinks və ya menuItems yoxdusa underfined etme bos [] array qaytar */
+  /* Əgər navLinks və ya menuItems yoxdusa underfined etme bos [] array qaytar */
   const { navLinks = [], menuItems = [] } = useContext(DATA);
-  const {sebet = []} = useContext(BASKET) 
+  const { sebet = [] } = useContext(BASKET);
   const cartCount = sebet.length;
-  const {wistList = []} = useContext(WISHLIST)
-  const heartCount = wistList.length
- const { finalPrice} = useContext(BASKET)
+  const { wistList = [] } = useContext(WISHLIST);
+  const heartCount = wistList.length;
+  const { finalPrice } = useContext(BASKET);
 
   useEffect(() => {
     const handleResize = () => {
@@ -150,16 +150,21 @@ function Header() {
     };
   }, [menuOpen]);
 
-
   return (
     <>
       <nav className="relative">
         <div className="border-b border-gray-200 py-4 px-4 flex items-center justify-between gap-2">
           <div className="flex items-center gap-4 text-sm md:text-base">
-            <Link to="/storelocation" className="hover:underline font-semibold cursor-pointer">
+            <Link
+              to="/storelocation"
+              className="hover:underline font-semibold cursor-pointer"
+            >
               Mağazalarımız
             </Link>
-            <Link to="/corporate" className="hover:underline font-semibold cursor-pointer">
+            <Link
+              to="/corporate"
+              className="hover:underline font-semibold cursor-pointer"
+            >
               Korporativ satış
             </Link>
           </div>
@@ -199,7 +204,6 @@ function Header() {
           </div>
         </div>
 
-     
         {isFixed && <div style={{ height: headerHeight }} aria-hidden="true" />}
 
         <div
@@ -240,7 +244,7 @@ function Header() {
               >
                 <IoSearchOutline className="text-3xl sm:text-4xl" />
               </button>
-                {/* mobile basketim */}
+              {/* mobile basketim */}
               <Link to="/basket" className="p-1 -m-1">
                 <span className="relative inline-flex">
                   <CiShoppingCart className="text-3xl sm:text-4xl" />
@@ -257,34 +261,7 @@ function Header() {
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-4 w-full">
             {/* Kataloq */}
-            <div className="relative group shrink-0">
-              <div className="bg-red-500 border-2 border-red-500 flex items-center px-5 py-3 rounded-sm text-xl text-white group-hover:bg-white group-hover:text-red-500 gap-2 cursor-pointer whitespace-nowrap">
-                <HiBars3BottomRight className="text-2xl" />
-                <span>Kataloq</span>
-              </div>
-
-              <ul className="absolute top-[calc(100%+10px)] left-0 bg-white shadow-lg border w-[320px] z-50 before:content-[''] before:absolute before:bottom-full before:left-0 before:w-full before:h-[10px] opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-in-out rounded-sm">
-                {menuItems.map((item) => {
-                  const Icon = ICONS[item.icon];
-                  return (
-                    <li
-                      key={item.id}
-                      className="flex items-center justify-between gap-2 p-4 border-b border-gray-300 cursor-pointer text-gray-700 hover:bg-gray-50"
-                    >
-                      <span
-                        className={`flex items-center gap-3 text-2xl ${item.icon ? "" : "pl-9"}`}
-                      >
-                        {Icon && <Icon className="text-xl" />}
-                        <span className="hover:underline text-base">
-                          {item.label}
-                        </span>
-                      </span>
-                      {item.hasArrow && <FaAngleRight />}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+            <Catalog />
 
             {/* Axtarış */}
             <div className="border flex items-center px-4 py-3 rounded-sm border-gray-400 flex-1">
@@ -304,32 +281,37 @@ function Header() {
             </div>
             {/* Ürək */}
             <Link to="/favorite" className="shrink-0">
-               <span className="relative inline-flex">
-              <CiHeart className="text-4xl" />
-              
-              {heartCount > 0 && (
-                <span className="absolute -top-1 -right-2 min-w-[16px] h-[16px] px-[3px] rounded-full bg-red-500 text-white text-[9px] font-semibold flex items-center justify-center leading-none">
-                  {heartCount > 99 ? "99+" : heartCount}
-                </span>
-              )}
-            </span>
+              <span className="relative inline-flex">
+                <CiHeart className="text-4xl" />
+
+                {heartCount > 0 && (
+                  <span className="absolute -top-1 -right-2 min-w-[16px] h-[16px] px-[3px] rounded-full bg-red-500 text-white text-[9px] font-semibold flex items-center justify-center leading-none">
+                    {heartCount > 99 ? "99+" : heartCount}
+                  </span>
+                )}
+              </span>
             </Link>
 
             {/* Səbət */}
-          <Link to="/basket" className="flex items-center gap-2 whitespace-nowrap shrink-0">
-            <span className="relative inline-flex">
-              <CiShoppingCart className="text-4xl" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-2 min-w-[16px] h-[16px] px-[3px] rounded-full bg-red-500 text-white text-[9px] font-semibold flex items-center justify-center leading-none">
-                  {cartCount > 99 ? "99+" : cartCount}
+            <Link
+              to="/basket"
+              className="flex items-center gap-2 whitespace-nowrap shrink-0"
+            >
+              <span className="relative inline-flex">
+                <CiShoppingCart className="text-4xl" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-2 min-w-[16px] h-[16px] px-[3px] rounded-full bg-red-500 text-white text-[9px] font-semibold flex items-center justify-center leading-none">
+                    {cartCount > 99 ? "99+" : cartCount}
+                  </span>
+                )}
+              </span>
+              <div className="flex flex-col">
+                <span className="text-gray-400 text-sm">Məbləğ</span>
+                <span className="text-base font-medium">
+                  {(Math.round(finalPrice) * 100) / 100} ₼
                 </span>
-              )}
-            </span>
-            <div className="flex flex-col">
-              <span className="text-gray-400 text-sm">Məbləğ</span>
-              <span className="text-base font-medium">{(Math.round(finalPrice)*100)/100} ₼</span>
-            </div>
-          </Link>
+              </div>
+            </Link>
           </div>
 
           {/* Yenilənmiş Mobil Axtarış Sahəsi */}
@@ -353,11 +335,11 @@ function Header() {
             </div>
           )}
         </div>
-
+        {/* hamburger */}
         <div
-          className={`fixed top-0 left-0 h-full w-[400px] max-w-full z-50 bg-white shadow-lg transition-transform duration-300 ease-in-out ${
-            menuOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+          className={`fixed top-0 left-0 h-full w-[400px] max-w-full z-50 bg-white shadow-lg transition-transform duration-300 ease-in-out overflow-y-auto ${
+              menuOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
         >
           {/* ust hisse */}
           <div className="flex items-center justify-between p-4 bg-gray-100 border-b border-gray-300">
@@ -414,8 +396,8 @@ function Header() {
       </nav>
 
       {/* Asagi menu */}
-       <div
-        className="fixed bottom-0 left-0 w-full border-t bg-white z-50 md:hidden border-gray-300 shadow-[0_-2px_8px_rgba(0,0,0,0.08)]"
+      <div
+        className="fixed bottom-0 left-0 w-full border-t bg-white z-40 md:hidden border-gray-300 shadow-[0_-2px_8px_rgba(0,0,0,0.08)]"
         // style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
       >
         <ul className="flex items-stretch justify-between px-1">
@@ -425,7 +407,9 @@ function Header() {
                 to={to}
                 className={({ isActive }) =>
                   `flex flex-col items-center justify-center gap-1 py-2 px-1 text-[11px] leading-tight transition-colors ${
-                    isActive ? "text-red-500 border-t border-red-500" : "text-gray-500"
+                    isActive
+                      ? "text-red-500 border-t border-red-500"
+                      : "text-gray-500"
                   }`
                 }
               >

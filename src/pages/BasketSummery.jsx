@@ -18,7 +18,7 @@ function BasketSummery() {
                     alt={item.title}
                   />
                   <div className="flex flex-col gap-2 sm:gap-3 items-center sm:items-start text-center sm:text-left w-full">
-                    <Link to={`/details/${item.source}/${item.id}`} className="font-semibold text-lg leading-snug">{item.title}</Link>
+                    <Link to={`/details//${item.id}`} className="font-semibold text-lg leading-snug">{item.title}</Link>
 
                     <span className="text-xl font-bold text-[#001623]">{Math.round((item.price > 1 ? item.price * item.quantity : item.price)*100)/100} ₼</span>
 
