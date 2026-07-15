@@ -8,7 +8,7 @@ function Favorite() {
     window.scrollTo(0, 0);
   }, []);
 
-  const { wistList, removeWislist, removeWislistCart } = useContext(WISHLIST);
+  const { wistList, removeWislist } = useContext(WISHLIST);
 
   return (
     <>

@@ -21,8 +21,15 @@ function WishlistContext({children}) {
    function removeWislistCart(id){
     setWishlist((item) => item.filter((index) => index.id !== id))
    }
+    function checkedWislist(item){
+        return  wistList.filter((e) => e.id === item.id).length > 0;
+    }
+   function wishListOnClickMove(item ){
+    const isInWishlist = checkedWislist(item)
+    isInWishlist ? removeWislistCart(item.id) : addWishlist(item.id,item.image,item.title,item.price)
+   }
   return (
-    <WISHLIST.Provider  value={{ addWishlist, removeWislist, removeWislistCart, wistList }}>
+    <WISHLIST.Provider  value={{ addWishlist, removeWislist, removeWislistCart, wistList ,checkedWislist , wishListOnClickMove}}>
       {children}
     </WISHLIST.Provider>
   )

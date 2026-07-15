@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import { BASKET, DATA } from "../Context/Context";
+import {  useContext, useEffect } from "react";
+import { BASKET, DATA, WISHLIST } from "../Context/Context";
 import { Link, useParams } from "react-router-dom";
 import Detailsimg from "./Details-comp/Detailsimg";
 import { CiCircleCheck, CiBoxes, CiHeart } from "react-icons/ci";
@@ -7,6 +7,8 @@ import { CiCircleCheck, CiBoxes, CiHeart } from "react-icons/ci";
 function Details() {
   const { source, id } = useParams();
   const { user, user2 } = useContext(DATA);
+  const {addBasket} = useContext(BASKET)
+  const {checkedWislist} = useContext(WISHLIST)
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,7 +24,6 @@ function Details() {
     );
   }
 
-  const {addBasket} = useContext(BASKET)
   return (
     <>
       <div className="max-w-7xl mx-auto px-4 pt-4">
@@ -91,7 +92,7 @@ function Details() {
                   İndi al
                 </button>
 
-                <button className="h-12 w-full lg:w-12 border border-gray-300 rounded-md flex items-center justify-center hover:bg-gray-100 transition cursor-pointer order-2 md:order-4">
+                <button onClick={checkedWislist} className="h-12 w-full lg:w-12 border border-gray-300 rounded-md flex items-center justify-center hover:bg-gray-100 transition cursor-pointer order-2 md:order-4">
                   <CiHeart className="text-2xl text-gray-500 hover:text-red-500 transition" />
                 </button>
               </div>
