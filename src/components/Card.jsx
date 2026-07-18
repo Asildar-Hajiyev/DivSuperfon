@@ -8,7 +8,7 @@ import { BASKET, COMPARE, WISHLIST } from "../Context/Context";
 function Card({ item, i }) {
   const { addBasket } = useContext(BASKET);
   const { wishListOnClickMove, checkedWislist } = useContext(WISHLIST);
-  const {addCorpare, checkedCorpare} = useContext(COMPARE)
+  const { addCorpare, checkedCorpare } = useContext(COMPARE);
 
   return (
     <div className="group relative w-full max-w-[360px] mx-auto border border-gray-300 rounded-md p-4 flex overflow-hidden my-4">
@@ -51,27 +51,26 @@ function Card({ item, i }) {
       {/* bu hisse cardda favorilere alma heart hissesidir  */}
       <div
         onClick={() => wishListOnClickMove(item)}
-        className={`absolute top-6 right-6 p-2 rounded-full border shadow-lg cursor-pointer transition-all duration-300 ${
-          checkedWislist(item)
-            ? "bg-white text-red-500 border-red-500 opacity-100 scale-105"
-            : "bg-white opacity-0 group-hover:opacity-100 border-gray-100 text-gray-500 hover:text-red-500 hover:border-red-500"
-        }`}
+        className={`absolute top-6 right-6 p-2 rounded-full border shadow-lg cursor-pointer
+    transition-all duration-300 opacity-0 group-hover:opacity-100 ${
+      checkedWislist(item)
+        ? "bg-white text-red-500 border-red-500 scale-105"
+        : "bg-white border-gray-100 text-gray-500 hover:text-red-500 hover:border-red-500"
+    }`}
       >
-        {checkedWislist(item) ? (
-          <CiHeart className="text-2xl text-red-500" />
-        ) : (
-          <CiHeart className="text-2xl" />
-        )}
+        <CiHeart
+          className={`text-2xl ${checkedWislist(item) ? "text-red-500" : ""}`}
+        />
       </div>
       {/* bu hisse cardda muqayise button olan hissemdir  */}
-       <div
+      <div
         onClick={() => addCorpare(item)}
-        className={`absolute top-18 right-6 p-2 rounded-full border shadow-lg cursor-pointer 
-               transition-all duration-300 ${
-                 checkedCorpare(item)
-                   ? "bg-white text-blue-500 border-blue-500 opacity-100 scale-105"
-                   : "bg-white opacity-0 group-hover:opacity-100 border-gray-100 text-gray-500 hover:text-blue-500 hover:border-blue-500"
-               }`}
+        className={`absolute top-18 right-6 p-2 rounded-full border shadow-lg cursor-pointer
+    transition-all duration-300 opacity-0 group-hover:opacity-100 ${
+      checkedCorpare(item)
+        ? "bg-white text-blue-500 border-blue-500 scale-105"
+        : "bg-white text-gray-500 border-gray-100 hover:text-blue-500 hover:border-blue-500"
+    }`}
       >
         <GiScales className="text-2xl" />
       </div>
