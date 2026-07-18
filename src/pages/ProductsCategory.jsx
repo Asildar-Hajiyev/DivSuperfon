@@ -2,18 +2,26 @@ import { useContext, useState } from "react";
 import { FaChevronDown, FaSearch, FaAngleUp } from "react-icons/fa";
 import { DATA } from "../Context/Context";
 
-function ProductsCategory() {
+function ProductsCategory({ setCat, setPrice }) {
   const { user } = useContext(DATA);
 
   const [categoryOpen, setCategoryOpen] = useState(false);
-  const [brandOpen, setBrandOpen] = useState(false);
+
   const [priceOpen, setPriceOpen] = useState(false);
 
   const filtereData = user.filter(
     (item, index, arr) =>
       index === arr.findIndex((el) => el.category === item.category),
   );
+  const [selectedCategory, setSelectedCategory] = useState("");
 
+  const handleCategoryClick = (value) => {
+    setSelectedCategory(value);
+    setCat(value);
+  };
+
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   return (
     <div className="w-full bg-white rounded-lg ">
       <div className="border-b border-gray-300">
@@ -26,37 +34,30 @@ function ProductsCategory() {
         </div>
 
         {categoryOpen && (
-          <div className="p-4">
-            {filtereData.map((item) => (
-              <div key={item.id}>
-                <label className="flex gap-2">
-                  <input type="checkbox" />
+          <div className="p-4 flex flex-wrap gap-2">
+            <button
+              onClick={() => handleCategoryClick("")}
+              className={`px-3 py-1.5 rounded-full text-sm border transition cursor-pointer ${
+                selectedCategory === ""
+                  ? "bg-blue-950 text-white border-blue-950"
+                  : "bg-white text-gray-600 border-gray-300 hover:border-blue-950 hover:text-blue-950"
+              }`}
+            >
+              hamısı
+            </button>
+            {filtereData.map((item, c) => (
+              <div key={c}>
+                <button
+                  key={c}
+                  onClick={() => handleCategoryClick(item.category)}
+                  className={`px-3 py-1.5 rounded-full text-sm border transition cursor-pointer ${
+                    selectedCategory === item.category
+                      ? "bg-blue-950 text-white border-blue-950"
+                      : "bg-white text-gray-600 border-gray-300 hover:border-blue-950 hover:text-blue-950"
+                  }`}
+                >
                   {item.category}
-                </label>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div className="border-b border-gray-300">
-        <div
-          onClick={() => setBrandOpen(!brandOpen)}
-          className="flex justify-between items-center p-4 cursor-pointer"
-        >
-          <h2 className="font-semibold text-blue-950">Brendlər</h2>
-
-          {brandOpen ? <FaAngleUp /> : <FaChevronDown />}
-        </div>
-
-        {brandOpen && (
-          <div className="p-4 space-y-2">
-            {filtereData.map((item) => (
-              <div key={item.id}>
-                <label className="flex gap-2">
-                  <input type="checkbox" />
-                  {item.brand}
-                </label>
+                </button>
               </div>
             ))}
           </div>
@@ -78,16 +79,23 @@ function ProductsCategory() {
             <input
               type="number"
               placeholder="Min"
+              value={minPrice}
               className="border p-2 rounded w-full"
+              onChange={(e) => setMinPrice(e.target.value)}
             />
 
             <input
               type="number"
               placeholder="Max"
+              value={maxPrice}
               className="border p-2 rounded w-full"
+              onChange={(e) => setMaxPrice(e.target.value)}
             />
 
-            <button className="bg-blue-950 text-white px-4 rounded">
+            <button
+              onClick={() => setPrice({ min: minPrice, max: maxPrice })}
+              className="bg-blue-950 text-white px-4 rounded"
+            >
               <FaSearch />
             </button>
           </div>
