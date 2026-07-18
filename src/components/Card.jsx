@@ -1,12 +1,14 @@
 import { useContext } from "react";
 import { CiShoppingCart, CiHeart } from "react-icons/ci";
+import { GiScales } from "react-icons/gi";
 
 import { Link } from "react-router-dom";
-import { BASKET, WISHLIST } from "../Context/Context";
+import { BASKET, COMPARE, WISHLIST } from "../Context/Context";
 
 function Card({ item, i }) {
   const { addBasket } = useContext(BASKET);
   const { wishListOnClickMove, checkedWislist } = useContext(WISHLIST);
+  const {addCorpare, checkedCorpare} = useContext(COMPARE)
 
   return (
     <div className="group relative w-full max-w-[360px] mx-auto border border-gray-300 rounded-md p-4 flex overflow-hidden my-4">
@@ -46,10 +48,10 @@ function Card({ item, i }) {
           </button>
         </div>
       </div>
-
+      {/* bu hisse cardda favorilere alma heart hissesidir  */}
       <div
         onClick={() => wishListOnClickMove(item)}
-        className={`absolute top-4 right-4 p-2 rounded-full border shadow-lg cursor-pointer transition-all duration-300 ${
+        className={`absolute top-6 right-6 p-2 rounded-full border shadow-lg cursor-pointer transition-all duration-300 ${
           checkedWislist(item)
             ? "bg-white text-red-500 border-red-500 opacity-100 scale-105"
             : "bg-white opacity-0 group-hover:opacity-100 border-gray-100 text-gray-500 hover:text-red-500 hover:border-red-500"
@@ -60,6 +62,18 @@ function Card({ item, i }) {
         ) : (
           <CiHeart className="text-2xl" />
         )}
+      </div>
+      {/* bu hisse cardda muqayise button olan hissemdir  */}
+       <div
+        onClick={() => addCorpare(item)}
+        className={`absolute top-18 right-6 p-2 rounded-full border shadow-lg cursor-pointer 
+               transition-all duration-300 ${
+                 checkedCorpare(item)
+                   ? "bg-white text-blue-500 border-blue-500 opacity-100 scale-105"
+                   : "bg-white opacity-0 group-hover:opacity-100 border-gray-100 text-gray-500 hover:text-blue-500 hover:border-blue-500"
+               }`}
+      >
+        <GiScales className="text-2xl" />
       </div>
 
       <div

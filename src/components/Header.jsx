@@ -20,7 +20,7 @@ import { LuHouse } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa";
 
 import { Link, NavLink } from "react-router-dom";
-import { DATA, BASKET, WISHLIST } from "../Context/Context";
+import { DATA, BASKET, WISHLIST, COMPARE } from "../Context/Context";
 import Catalog from "./Catalog";
 
 const ICONS = {
@@ -118,6 +118,8 @@ function Header() {
   const { wistList = [] } = useContext(WISHLIST);
   const heartCount = wistList.length;
   const { finalPrice } = useContext(BASKET);
+  const {corpare} = useContext(COMPARE)
+  const corpareCount = corpare.length
 
   useEffect(() => {
     const handleResize = () => {
@@ -276,9 +278,14 @@ function Header() {
               </label>
             </div>
             {/* Tərəzi */}
-            <div className="shrink-0">
+            <Link to="/compare" className="shrink-0 relative">
               <GiScales className="text-4xl" />
-            </div>
+              {corpareCount > 0 && (
+                  <span className="absolute -top-1 -right-2 min-w-[16px] h-[16px] px-[3px] rounded-full bg-red-500 text-white text-[9px] font-semibold flex items-center justify-center leading-none">
+                    {corpareCount > 99 ? "99+" : corpareCount}
+                  </span>
+                )}
+            </Link>
             {/* Ürək */}
             <Link to="/favorite" className="shrink-0">
               <span className="relative inline-flex">

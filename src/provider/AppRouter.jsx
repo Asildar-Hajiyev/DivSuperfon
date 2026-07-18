@@ -10,6 +10,9 @@ import Home_Section1 from "../pages/Home_Section1";
 import Details from "../components/Details";
 import Products from "../pages/Products";
 import Login from "../pages/Login";
+import Register from "../pages/Register";
+import ForgotPassword from "../pages/ForgotPassword";
+import Comparison from "../components/Comparison";
 
 function AppRouter() {
   return (
@@ -26,6 +29,9 @@ function AppRouter() {
         <Route path="/details/:id" element={<Details/>}/>
         <Route path="/products" element={<Products/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
+        <Route path="/compare" element={<Comparison/>}/>
       </Routes>
     </>
   );
