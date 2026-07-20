@@ -5,11 +5,15 @@ import { RegisterFormSchemas } from "../schemas/RegisterFormSchemas";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import { auth } from "../firebase/Firebase";
+import { useEffect } from "react";
 
 
 function Register() {
 
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
    const {values ,errors ,handleSubmit, handleChange } = useFormik({
      initialValues: {

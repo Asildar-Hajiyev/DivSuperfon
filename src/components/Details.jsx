@@ -87,9 +87,12 @@ function Details() {
                   Səbətə əlavə et
                 </button>
 
-                <button className="h-12 flex-1 rounded-md bg-orange-500 text-white font-medium hover:bg-orange-600 transition cursor-pointer order-4 md:order-3">
+               <Link
+                  to="/login"
+                  className="h-12 flex-1 flex items-center justify-center rounded-md bg-orange-500 text-white font-medium hover:bg-orange-600 transition order-4 md:order-3"
+                >
                   İndi al
-                </button>
+                </Link>
 
               
 

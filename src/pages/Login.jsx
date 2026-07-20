@@ -1,11 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import LoginRegisterLeft from "../components/LoginRegisterLeft";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/Firebase";
 import { toast } from "react-toastify";
 
 function Login() {
+
+  
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
   const [email,setMail] = useState('')
   const [password,setPassword] = useState('')
   const navigate = useNavigate()

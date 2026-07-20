@@ -2,9 +2,16 @@ import { signOut } from "firebase/auth"
 import { auth } from "../firebase/Firebase"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import { useEffect } from "react";
 
 
 function Profil() {
+
+  
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
   const navigate = useNavigate()
   async function logout(){
     toast.success('profilde cixis edilir')

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CiCircleInfo } from "react-icons/ci";
 import { BASKET } from "../Context/Context";
+import { Link } from "react-router-dom";
 
 function BasketCart() {
   const { totalPrice , discount , finalPrice} = useContext(BASKET)
@@ -34,9 +35,12 @@ function BasketCart() {
                 <span>{Math.round(finalPrice * 100) / 100} ₼</span>
               </div>
 
-              <button className="w-full mt-5 py-3 rounded-lg bg-[#001623] text-white hover:bg-[#49637b] transition">
+             <Link
+                to="/login"
+                className="block w-full mt-5 py-3 rounded-lg bg-[#001623] text-white hover:bg-[#49637b] transition text-center"
+              >
                 Sifarişi tamamla
-              </button>
+              </Link>
             </div>
           </div>
   )
