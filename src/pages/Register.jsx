@@ -1,8 +1,43 @@
 import { Link } from "react-router-dom";
 import LoginRegisterLeft from "../components/LoginRegisterLeft";
+import { useFormik } from "formik";
+import { RegisterFormSchemas } from "../schemas/RegisterFormSchemas";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
+import { auth } from "../firebase/Firebase";
 
 
 function Register() {
+
+
+
+   const {values ,errors ,handleSubmit, handleChange } = useFormik({
+     initialValues: {
+       email: '',
+       name : '',
+       password : '' ,
+       confirmPassword : '',
+     },
+     validationSchema : RegisterFormSchemas,
+
+    
+   });
+
+  async function register (actions,values){
+    console.log("actions ---" , actions  , "values --- " , values)
+    try {
+    
+  const response = await createUserWithEmailAndPassword(auth, values.email, values.password)
+  const user = response.user
+  if(user){
+    toast.success("Qeydiyyat tamamlandi")
+      actions.resetForm();
+  }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+ 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/50 flex items-center justify-center px-4 py-12 md:px-6">
       <div className="max-w-5xl w-full grid md:grid-cols-12 gap-8 lg:gap-16 items-center">
@@ -19,9 +54,12 @@ function Register() {
             <p className="text-slate-500 text-sm mt-1">
               Məlumatlarınızı daxil edərək qeydiyyatdan keçin
             </p>
+            
           </div>
 
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+          {/* =========================== */}
+
+          <form className="space-y-5" onSubmit={handleSubmit} >
             <div className="flex flex-col gap-1.5">
               <label htmlFor="name" className="text-sm font-semibold text-slate-700">
                 Tam Adınız
@@ -29,9 +67,13 @@ function Register() {
               <input
                 id="name"
                 type="text"
-                placeholder="Asildar Hacıyev"
+                placeholder="exp: white john"
+                value={values.name}
+                onChange={handleChange}
+               
                 className="w-full border border-slate-200 rounded-xl p-3 text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white"
               />
+              {errors.name && <p className="text-red-500">{errors.name}</p>}
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -42,8 +84,11 @@ function Register() {
                 id="email"
                 type="email"
                 placeholder="example@gmail.com"
+                 value={values.email}
+                  onChange={handleChange}
                 className="w-full border border-slate-200 rounded-xl p-3 text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white"
               />
+               {errors.email && <p className="text-red-500">{errors.email}</p>}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -55,8 +100,11 @@ function Register() {
                   id="password"
                   type="password"
                   placeholder="••••••••"
+                   value={values.password}
+                    onChange={handleChange}
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white"
                 />
+                    {errors.password && <p className="text-red-500">{errors.password}</p>}
               </div>
 
               <div className="flex flex-col gap-1.5">
@@ -67,16 +115,19 @@ function Register() {
                   id="confirmPassword"
                   type="password"
                   placeholder="••••••••"
+                   value={values.confirmPassword}
+                    onChange={handleChange}
                   className="w-full border border-slate-200 rounded-xl p-3 text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white"
-                />
+                />  {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword}</p>}
               </div>
+           
             </div>
 
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl shadow-lg shadow-blue-500/10 transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] mt-2">
+            <button onClick={register} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl shadow-lg shadow-blue-500/10 transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] mt-2">
               Qeydiyyatdan Keç
             </button>
           </form>
-
+          {/* =========================== */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-slate-100"></div>

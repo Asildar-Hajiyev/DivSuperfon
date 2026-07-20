@@ -1,7 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginRegisterLeft from "../components/LoginRegisterLeft";
+import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/Firebase";
+import { toast } from "react-toastify";
 
 function Login() {
+  const [email,setMail] = useState('')
+  const [password,setPassword] = useState('')
+  const navigate = useNavigate()
+  async function login() {
+    try {
+     const response =  await signInWithEmailAndPassword(auth , email, password)
+     const user =  response.user
+     if(user){
+      navigate("/profil")
+     }
+    } catch (error) {
+      toast.error('Giris ugursuz' , error.message)
+    }
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/50 flex items-center justify-center px-4 py-12 md:px-6">
       <div className="max-w-5xl w-full grid md:grid-cols-12 gap-8 lg:gap-16 items-center">
@@ -31,6 +49,8 @@ function Login() {
                 id="mail"
                 type="email"
                 placeholder="example@gmail.com"
+                value={email}
+                onChange={(e)=>setMail(e.target.value)}
                 className="w-full border border-slate-200 rounded-xl p-3 text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white"
               />
             </div>
@@ -48,11 +68,13 @@ function Login() {
                 id="password"
                 type="password"
                 placeholder="••••••••"
+                value={password}
+                onChange={(e)=>setPassword(e.target.value)}
                 className="w-full border border-slate-200 rounded-xl p-3 text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white"
               />
             </div>
 
-            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl shadow-lg shadow-blue-500/10 transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] mt-2">
+            <button onClick={login} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl shadow-lg shadow-blue-500/10 transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] mt-2">
               Daxil Ol
             </button>
           </form>

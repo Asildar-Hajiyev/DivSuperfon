@@ -13,6 +13,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ForgotPassword from "../pages/ForgotPassword";
 import Comparison from "../components/Comparison";
+import Profil from "../pages/Profil";
 
 function AppRouter() {
   return (
@@ -32,6 +33,7 @@ function AppRouter() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/forgot-password" element={<ForgotPassword/>}/>
         <Route path="/compare" element={<Comparison/>}/>
+        <Route path="/profil" element={<Profil/>}/>
       </Routes>
     </>
   );

@@ -12,12 +12,16 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.3.1",
     "axios": "^1.18.1",
+    "firebase": "^12.16.0",
+    "formik": "^2.4.9",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-icons": "^5.6.0",
     "react-router-dom": "^7.18.0",
+    "react-toastify": "^11.1.0",
     "swiper": "^14.0.1",
-    "tailwindcss": "^4.3.1"
+    "tailwindcss": "^4.3.1",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
