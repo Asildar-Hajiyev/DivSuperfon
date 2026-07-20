@@ -19,7 +19,7 @@ function Register() {
        confirmPassword : '',
      },
      validationSchema : RegisterFormSchemas,
-
+      onSubmit: register,
     
    });
 

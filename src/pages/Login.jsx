@@ -14,10 +14,14 @@ function Login() {
      const response =  await signInWithEmailAndPassword(auth , email, password)
      const user =  response.user
      if(user){
-      navigate("/profil")
+      toast.success("Ugurlu giris")
+      setTimeout(()=>{
+        navigate("/profil")
+      },2000)
+
      }
     } catch (error) {
-      toast.error('Giris ugursuz' , error.message)
+      toast.error( error.message ||'Giris ugursuz'  )
     }
   }
   return (
