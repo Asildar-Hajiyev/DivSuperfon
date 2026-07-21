@@ -27,18 +27,25 @@ function Register() {
     
    });
 
-  async function register (actions,values){
-    console.log("actions ---" , actions  , "values --- " , values)
+  async function register (values){
     try {
     
   const response = await createUserWithEmailAndPassword(auth, values.email, values.password)
   const user = response.user
   if(user){
     toast.success("Qeydiyyat tamamlandi")
-      actions.resetForm();
+   
   }
     } catch (error) {
-      toast.error(error.message)
+      if (error.code === "auth/email-already-in-use") {
+      toast.error("Bu email artıq qeydiyyatdan keçib. Zəhmət olmasa daxil olun.");
+    } else if (error.code === "auth/weak-password") {
+      toast.error("Şifrə çox zəifdir.");
+    } else if (error.code === "auth/invalid-email") {
+      toast.error("Email ünvanı düzgün deyil.");
+    } else {
+      toast.error(error.message);
+    }
     }
   }
  
