@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BASKET } from "./Context";
+import { toast } from "react-toastify";
 
 function BasketContext({ children }) {
   const [sebet, setSebet] = useState([]);
@@ -13,6 +14,7 @@ function BasketContext({ children }) {
           )
         : [...item, { id, image, title, price, quantity: 1 }],
     );
+    toast.success("Mehsul çantaya əlavə edildi");
   }
 
   function incQuantity(id) {
@@ -35,15 +37,29 @@ function BasketContext({ children }) {
 
   function removeBasket() {
     setSebet([]);
+    toast.error("Mehsullar çantadan xaric edildilər");
   }
 
   function removeBasketCart(id) {
     setSebet((item) => item.filter((index) => index.id !== id));
+    toast.error("Mehsul çantadan xaric edildi");
   }
 
   const totalCount = sebet.reduce((total, item) => total + item.quantity, 0);
-  const totalPrice = sebet.reduce((total, item) => total + item.price * item.quantity, 0,);
-  const discount = totalCount >= 15 ? 100 :  totalCount >= 10 ? 64 : totalCount >= 6 ? 48 : totalCount >= 3 ? 21 : 0;
+  const totalPrice = sebet.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0,
+  );
+  const discount =
+    totalCount >= 15
+      ? 100
+      : totalCount >= 10
+        ? 64
+        : totalCount >= 6
+          ? 48
+          : totalCount >= 3
+            ? 21
+            : 0;
   const finalPrice = Math.max(totalPrice - discount, 0);
 
   return (
@@ -58,7 +74,7 @@ function BasketContext({ children }) {
         totalPrice,
         totalCount,
         discount,
-        finalPrice
+        finalPrice,
       }}
     >
       {children}

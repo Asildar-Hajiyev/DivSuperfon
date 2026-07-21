@@ -8,7 +8,7 @@ import { BASKET, COMPARE, WISHLIST } from "../Context/Context";
 function Card({ item, i }) {
   const { addBasket } = useContext(BASKET);
   const { wishListOnClickMove, checkedWislist } = useContext(WISHLIST);
-  const { addCorpare, checkedCorpare } = useContext(COMPARE);
+  const { corpareOnClickMove, checkedCorpare } = useContext(COMPARE);
 
   return (
     <div className="group relative w-full max-w-[360px] mx-auto border border-gray-300 rounded-md p-4 flex overflow-hidden my-4">
@@ -64,7 +64,7 @@ function Card({ item, i }) {
       </div>
       {/* bu hisse cardda muqayise button olan hissemdir  */}
       <div
-        onClick={() => addCorpare(item)}
+        onClick={() => corpareOnClickMove(item)}
         className={`absolute top-18 right-6 p-2 rounded-full border shadow-lg cursor-pointer
     transition-all duration-300 opacity-0 group-hover:opacity-100 ${
       checkedCorpare(item)
@@ -72,7 +72,9 @@ function Card({ item, i }) {
         : "bg-white text-gray-500 border-gray-100 hover:text-blue-500 hover:border-blue-500"
     }`}
       >
-        <GiScales className="text-2xl" />
+        <GiScales
+          className={`text-2xl ${checkedCorpare(item) ? "text-blue-500" : ""}`}
+        />
       </div>
 
       <div

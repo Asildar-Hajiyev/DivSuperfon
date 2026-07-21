@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { WISHLIST } from "./Context"
+import { toast } from "react-toastify"
 
 function WishlistContext({children}) {
     const [wistList,setWishlist] = useState([])
@@ -14,12 +15,15 @@ function WishlistContext({children}) {
         : [...item, { id, image, title, price, quantity: 1 }],
     )
     console.log(wistList)
+  toast.success("Məhsul sevimlilərə əlavə edildi")
+          
    }
    function removeWislist(){
     setWishlist([])
    }
    function removeWislistCart(id){
     setWishlist((item) => item.filter((index) => index.id !== id))
+    toast.error("Məhsul sevimlilərdən xaric edildi")
    }
     function checkedWislist(item){
         return  wistList.filter((e) => e.id === item.id).length > 0;

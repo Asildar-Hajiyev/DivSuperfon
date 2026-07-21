@@ -9,7 +9,13 @@ function App() {
     <>
       <Header/>
       <AppRouter/>
-      <ToastContainer position="top-right" autoClose={2000}/> 
+     <ToastContainer
+        position="bottom-right"
+        autoClose={3500}
+        newestOnTop
+        toastClassName="toasty-toast"
+        bodyClassName="toasty-body"
+      />
       <Footer/>
     </>
   )

@@ -20,6 +20,7 @@ function Login() {
      const response =  await signInWithEmailAndPassword(auth , email, password)
      const user =  response.user
      if(user){
+      localStorage.setItem("token", JSON.stringify(user.accessToken))
       toast.success("Ugurlu giris")
       setTimeout(()=>{
         navigate("/profil")
