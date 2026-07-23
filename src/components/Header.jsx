@@ -22,7 +22,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { DATA, BASKET, WISHLIST, COMPARE } from "../Context/Context";
 import Catalog from "./Catalog";
-import SearchCart from "../pages/SearchCart";
+import SearchCartMobil from "../pages/SearchCartMobil";
+import SearchCartDesktop from "../pages/SearchCartDesktop";
 
 const ICONS = {
   FaCreditCard,
@@ -279,16 +280,29 @@ function Header() {
             <Catalog />
 
             {/* Axtarış */}
-            <div className="border flex items-center px-4 py-3 rounded-sm border-gray-400 flex-1">
-              <input
-                type="text"
-                placeholder="Axtarış"
-                id="srch"
-                className="focus:outline-none w-full text-base"
-              />
-              <label htmlFor="srch">
-                <IoSearchOutline className="text-2xl text-gray-400 cursor-pointer" />
-              </label>
+             <div className="relative flex-1">
+              <div className="border flex items-center px-4 py-3 rounded-sm border-gray-400">
+                <input
+                  type="text"
+                  placeholder="Axtarış"
+                  id="srch"
+                  className="focus:outline-none w-full text-base"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                <label htmlFor="srch">
+                  <IoSearchOutline className="text-2xl text-gray-400 cursor-pointer" />
+                </label>
+              </div>
+
+              {/* Nəticələr — İNDİ absolute, wrapper-ə görə mövqelənir */}
+              {query && (
+                <div className="absolute top-full left-0 mt-2 w-full max-h-60 overflow-y-auto bg-white border border-gray-200 rounded-md shadow-lg z-[60]">
+                  {filtered.map((item, i) => (
+                    <SearchCartDesktop item={item} key={i} />
+                  ))}
+                </div>
+              )}
             </div>
             {/* Tərəzi */}
             <Link to="/compare" className="shrink-0 relative">
@@ -352,7 +366,7 @@ function Header() {
               {query && (
                 <div className="w-full max-h-60 overflow-y-auto bg-white">
                   {filtered.map((item,i) => (
-                    <SearchCart item={item} key={i}/>
+                    <SearchCartMobil item={item} key={i}/>
                   ))}
                 </div>
               )}
@@ -444,7 +458,7 @@ function Header() {
           ))}
         </ul>
       </div>
-
+          
     </>
   );
 }

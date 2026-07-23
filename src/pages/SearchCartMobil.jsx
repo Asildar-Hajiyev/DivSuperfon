@@ -1,11 +1,11 @@
 import { CiShoppingCart } from "react-icons/ci";
 import { BASKET } from "../Context/Context";
 import { useContext } from "react";
-function SearchCart({item,i}) {
+function SearchCartMobil({item,i}) {
       const { addBasket } = useContext(BASKET);
   return (
     <li key={i} className="flex items-center gap-3 p-2 rounded-md hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
-      {/* Şəkil */}
+
       <div className="w-12 h-12 shrink-0 rounded-md bg-gray-100 overflow-hidden flex items-center justify-center">
         <img
           className="w-full h-full object-contain"
@@ -14,7 +14,7 @@ function SearchCart({item,i}) {
         />
       </div>
 
-      {/* Mətn */}
+  
       <div className="flex-1 min-w-0">
         <p className="text-sm text-gray-800 truncate">
           {item.title}
@@ -26,7 +26,7 @@ function SearchCart({item,i}) {
         )}
       </div>
 
-      {/* Səbətə əlavə et */}
+    
       <button
         onClick={() =>
               addBasket(item.id, item.image, item.title, item.price)
@@ -40,4 +40,4 @@ function SearchCart({item,i}) {
   )
 }
 
-export default SearchCart
+export default SearchCartMobil
