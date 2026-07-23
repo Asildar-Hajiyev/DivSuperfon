@@ -43,7 +43,7 @@ function Home_Section1() {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row items-stretch gap-4 lg:gap-6 w-full">
+      <div className="flex flex-col lg:flex-row items-stretch gap-4 lg:gap-6 w-full pt-[65px]">
         {/* sol menyu */}
         <div className="hidden md:block border rounded-md text-gray-500 w-full lg:w-[300px] lg:flex-shrink-0 overflow-hidden order-3 lg:order-1">
           <ul>

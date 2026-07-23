@@ -1,0 +1,43 @@
+import { CiShoppingCart } from "react-icons/ci";
+import { BASKET } from "../Context/Context";
+import { useContext } from "react";
+function SearchCart({item,i}) {
+      const { addBasket } = useContext(BASKET);
+  return (
+    <li key={i} className="flex items-center gap-3 p-2 rounded-md hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+      {/* Şəkil */}
+      <div className="w-12 h-12 shrink-0 rounded-md bg-gray-100 overflow-hidden flex items-center justify-center">
+        <img
+          className="w-full h-full object-contain"
+          src={item.image}
+          alt={item.title}
+        />
+      </div>
+
+      {/* Mətn */}
+      <div className="flex-1 min-w-0">
+        <p className="text-sm text-gray-800 truncate">
+          {item.title}
+        </p>
+        {item.price && (
+          <span className="text-sm font-semibold text-gray-900">
+            {item.price} ₼
+          </span>
+        )}
+      </div>
+
+      {/* Səbətə əlavə et */}
+      <button
+        onClick={() =>
+              addBasket(item.id, item.image, item.title, item.price)
+            }
+        className="shrink-0 p-2 rounded-full text-gray-500 hover:text-orange-500 hover:bg-orange-50 transition-colors duration-150 cursor-pointer"
+        aria-label="Səbətə əlavə et"
+      >
+        <CiShoppingCart className="text-xl" />
+      </button>
+    </li>
+  )
+}
+
+export default SearchCart

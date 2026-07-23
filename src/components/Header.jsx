@@ -22,6 +22,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { DATA, BASKET, WISHLIST, COMPARE } from "../Context/Context";
 import Catalog from "./Catalog";
+import SearchCart from "../pages/SearchCart";
 
 const ICONS = {
   FaCreditCard,
@@ -107,12 +108,14 @@ function Header() {
   const [selectedLang, setSelectedLang] = useState("AZ");
   const [openInput, setOpeninput] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
 
   const headerRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState(0);
 
   /* Əgər navLinks və ya menuItems yoxdusa underfined etme bos [] array qaytar */
-  const { navLinks = [], menuItems = [] } = useContext(DATA);
+  const { navLinks = [], menuItems = [] ,user = [] } = useContext(DATA);
   const { sebet = [] } = useContext(BASKET);
   const cartCount = sebet.length;
   const { wistList = [] } = useContext(WISHLIST);
@@ -151,7 +154,17 @@ function Header() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+  useEffect(() => {
+  const timer = setTimeout(() => {
+    setDebouncedQuery(query);
+  }, 1500); 
 
+  return () => clearTimeout(timer); 
+}, [query]);
+
+ const filtered = user.filter((item) =>
+  item.title?.toLowerCase().includes(debouncedQuery.toLowerCase())
+);
   return (
     <>
       <nav className="relative">
@@ -210,7 +223,7 @@ function Header() {
 
         <div
           ref={headerRef}
-          className={`flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 py-5 px-6 gap-4 bg-white transition-all duration-300 ${
+           className={`flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 py-5 px-6 gap-4 bg-white transition-all duration-300 ${
             isFixed ? "fixed top-0 left-0 w-full z-50 shadow-md" : "relative"
           }`}
         >
@@ -323,22 +336,26 @@ function Header() {
 
           {/* Yenilənmiş Mobil Axtarış Sahəsi */}
           {openInput && (
-            <div className="absolute top-full left-0 bg-white w-full px-6 py-4 border-b flex items-center gap-3 shadow-md">
+            <div className="absolute top-full left-0 right-0 w-full bg-white px-6 py-4 border-b flex flex-col gap-3 shadow-md z-[60]">
               <div className="flex items-center bg-gray-100 w-full px-3 py-2 rounded-md border border-gray-200">
                 <input
                   type="text"
                   placeholder="Axtarış..."
                   className="w-full bg-transparent focus:outline-none text-base"
                   autoFocus
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
                 <IoSearchOutline className="text-2xl text-gray-400" />
               </div>
-              <button
-                onClick={() => setOpeninput(false)}
-                className="text-3xl text-gray-500 hover:text-black cursor-pointer p-1"
-              >
-                <IoClose />
-              </button>
+
+              {query && (
+                <div className="w-full max-h-60 overflow-y-auto bg-white">
+                  {filtered.map((item,i) => (
+                    <SearchCart item={item} key={i}/>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -427,6 +444,7 @@ function Header() {
           ))}
         </ul>
       </div>
+
     </>
   );
 }
