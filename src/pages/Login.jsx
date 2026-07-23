@@ -1,12 +1,27 @@
 import { Link, useNavigate } from "react-router-dom";
 import LoginRegisterLeft from "../components/LoginRegisterLeft";
 import { useEffect, useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebase/Firebase";
 import { toast } from "react-toastify";
 
+import { FcGoogle } from "react-icons/fc";
+
+const provider = new GoogleAuthProvider()
 function Login() {
 
+ async function googleWithLogin(){
+    try {
+    const response = await signInWithPopup(auth,provider)
+    toast.success("Giriş Uğurludur")
+    const user = response.user
+    if(user){
+      navigate("/profil")
+    }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
   
     useEffect(() => {
       window.scrollTo(0, 0);
@@ -90,13 +105,24 @@ function Login() {
             </button>
           </form>
 
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-100"></div>
+         <div className="my-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-slate-200"></div>
+              </div>
+
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white px-3 text-slate-400">və ya</span>
+              </div>
             </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-slate-400">və ya</span>
-            </div>
+
+            {/* Google Button */}
+            <button onClick={googleWithLogin}  className="mt-6 w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition cursor-pointer">
+              <FcGoogle className="text-2xl" />
+              <span className="font-medium text-gray-700">
+                Google ilə davam et
+              </span>
+            </button>
           </div>
 
           <p className="text-center text-sm text-slate-500">
