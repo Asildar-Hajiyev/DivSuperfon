@@ -155,6 +155,7 @@ function Header() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+  
   useEffect(() => {
   const timer = setTimeout(() => {
     setDebouncedQuery(query);

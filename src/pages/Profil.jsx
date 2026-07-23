@@ -1,11 +1,12 @@
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase/Firebase";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Profil() {
   const navigate = useNavigate()
+  const [user,setUser]= useState('')
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -22,16 +23,39 @@ function Profil() {
       navigate("/login");
     }, 3000);
   }
+
+  useEffect(()=>{
+   const unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUser({
+        email: user.email,
+        name: user.displayName,
+        phone: user.phoneNumber,
+        photo: user.photoURL,
+        uid: user.uid,
+      });
+    }
+  });
+
+  return () => unsubscribe();
+  },[])
   return (
-    <div className="flex items-center justify-center gap-3 m-19">
-      <h2>profil</h2>
-      <button
-        onClick={logout}
-        className="rounded-sm px-2 py-1 bg-orange-400 text-white "
-      >
-        cixis edin
-      </button>
-    </div>
+   <div>
+      <div>
+        <h2>Profil</h2>
+        <p>{user?.name}</p>
+      </div>
+
+
+  <div className="px-6 pb-6">
+    <button
+      onClick={logout}
+       >
+      Çıxış edin
+    </button>
+  </div>
+
+</div>
   );
 }
 

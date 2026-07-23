@@ -123,17 +123,6 @@ function Footer() {
             <h2 className="text-[#001623] text-xl font-semibold">
               Yeniliklərdən xəbər alın
             </h2>
-            <p className="text-gray-400 text-sm">Online bültenimizə abunə ol</p>
-            <div className="flex items-center border rounded-sm bg-white border-gray-400 overflow-hidden w-full">
-              <input
-                className="focus:outline-none px-4 py-2 flex-1 min-w-0 text-sm"
-                type="text"
-                placeholder="Email ünvanınız"
-              />
-              <button className="bg-[#001623] px-4 py-2 text-white text-sm whitespace-nowrap hover:bg-[#002a3d] transition-all duration-200">
-                Abunə ol
-              </button>
-            </div>
           </div>
         </div>
 

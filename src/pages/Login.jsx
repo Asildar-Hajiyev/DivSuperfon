@@ -1,55 +1,56 @@
 import { Link, useNavigate } from "react-router-dom";
 import LoginRegisterLeft from "../components/LoginRegisterLeft";
 import { useEffect, useState } from "react";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../firebase/Firebase";
 import { toast } from "react-toastify";
 
 import { FcGoogle } from "react-icons/fc";
 
-const provider = new GoogleAuthProvider()
+const provider = new GoogleAuthProvider();
 function Login() {
-
- async function googleWithLogin(){
+  async function googleWithLogin() {
     try {
-    const response = await signInWithPopup(auth,provider)
-    toast.success("Giriş Uğurludur")
-    const user = response.user
-    if(user){
-      navigate("/profil")
-    }
+      const response = await signInWithPopup(auth, provider);
+      toast.success("Giriş Uğurludur");
+      const user = response.user;
+      if (user) {
+        navigate("/profil");
+      }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   }
-  
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
 
-  const [email,setMail] = useState('')
-  const [password,setPassword] = useState('')
-  const navigate = useNavigate()
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const [email, setMail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   async function login() {
     try {
-     const response =  await signInWithEmailAndPassword(auth , email, password)
-     const user =  response.user
-     if(user){
-      localStorage.setItem("token", JSON.stringify(user.accessToken))
-      toast.success("Ugurlu giris")
-      setTimeout(()=>{
-        navigate("/profil")
-      },2000)
-
-     }
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      const user = response.user;
+      if (user) {
+        localStorage.setItem("token", JSON.stringify(user.accessToken));
+        toast.success("Ugurlu giris");
+        setTimeout(() => {
+          navigate("/profil");
+        }, 2000);
+      }
     } catch (error) {
-      toast.error( error.message ||'Giris ugursuz'  )
+      toast.error(error.message || "Giris ugursuz");
     }
   }
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/50 flex items-center justify-center px-4 py-12 md:px-6">
       <div className="max-w-5xl w-full grid md:grid-cols-12 gap-8 lg:gap-16 items-center">
-        
         {/* Sol Tərəf (Komponent) */}
         <div className="md:col-span-5 text-center md:text-left">
           <LoginRegisterLeft />
@@ -68,7 +69,10 @@ function Login() {
 
           <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="mail" className="text-sm font-semibold text-slate-700">
+              <label
+                htmlFor="mail"
+                className="text-sm font-semibold text-slate-700"
+              >
                 E-poçt
               </label>
               <input
@@ -76,17 +80,23 @@ function Login() {
                 type="email"
                 placeholder="example@gmail.com"
                 value={email}
-                onChange={(e)=>setMail(e.target.value)}
+                onChange={(e) => setMail(e.target.value)}
                 className="w-full border border-slate-200 rounded-xl p-3 text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
               <div className="flex justify-between items-center">
-                <label htmlFor="password" className="text-sm font-semibold text-slate-700">
+                <label
+                  htmlFor="password"
+                  className="text-sm font-semibold text-slate-700"
+                >
                   Şifrə
                 </label>
-                <Link to="/forgot-password" className="text-xs text-blue-600 hover:underline font-medium">
+                <Link
+                  to="/forgot-password"
+                  className="text-xs text-blue-600 hover:underline font-medium"
+                >
                   Şifrəni unutdun?
                 </Link>
               </div>
@@ -95,17 +105,20 @@ function Login() {
                 type="password"
                 placeholder="••••••••"
                 value={password}
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full border border-slate-200 rounded-xl p-3 text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 placeholder:text-slate-400 bg-slate-50/50 focus:bg-white"
               />
             </div>
 
-            <button onClick={login} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl shadow-lg shadow-blue-500/10 transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] mt-2">
+            <button
+              onClick={login}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl shadow-lg shadow-blue-500/10 transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] mt-2"
+            >
               Daxil Ol
             </button>
           </form>
 
-         <div className="my-6">
+          <div className="my-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-slate-200"></div>
@@ -117,7 +130,10 @@ function Login() {
             </div>
 
             {/* Google Button */}
-            <button onClick={googleWithLogin}  className="mt-6 w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition cursor-pointer">
+            <button
+              onClick={googleWithLogin}
+              className="mt-6 w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition cursor-pointer"
+            >
               <FcGoogle className="text-2xl" />
               <span className="font-medium text-gray-700">
                 Google ilə davam et
@@ -127,12 +143,14 @@ function Login() {
 
           <p className="text-center text-sm text-slate-500">
             Hesabınız yoxdur?{" "}
-            <Link to="/register" className="text-blue-600 font-semibold hover:underline cursor-pointer transition ml-0.5">
+            <Link
+              to="/register"
+              className="text-blue-600 font-semibold hover:underline cursor-pointer transition ml-0.5"
+            >
               Qeydiyyatdan keçin
             </Link>
           </p>
         </div>
-
       </div>
     </div>
   );
