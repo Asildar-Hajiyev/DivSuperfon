@@ -166,7 +166,7 @@ function Register() {
             </div>
 
             <button
-              onClick={register}
+               type="submit" 
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl shadow-lg shadow-blue-500/10 transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] mt-2"
             >
               Qeydiyyatdan Keç

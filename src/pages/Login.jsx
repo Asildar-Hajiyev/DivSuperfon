@@ -67,7 +67,10 @@ function Login() {
             </p>
           </div>
 
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-5" onSubmit={
+            (e) => {e.preventDefault()
+             login()
+            }}>
             <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="mail"
@@ -93,12 +96,6 @@ function Login() {
                 >
                   Şifrə
                 </label>
-                <Link
-                  to="/forgot-password"
-                  className="text-xs text-blue-600 hover:underline font-medium"
-                >
-                  Şifrəni unutdun?
-                </Link>
               </div>
               <input
                 id="password"
@@ -111,7 +108,7 @@ function Login() {
             </div>
 
             <button
-              onClick={login}
+             type="submit"
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl shadow-lg shadow-blue-500/10 transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] mt-2"
             >
               Daxil Ol
